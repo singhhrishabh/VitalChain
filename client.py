@@ -78,10 +78,28 @@ class VitalChainClient:
 
 # ── Prompt formatter ─────────────────────────────────────────────────────────
 
-SYSTEM_PROMPT = """You are a hospital resource coordinator managing biological
-resource allocation. You will receive the current hospital state and a numbered
-list of available actions. Respond with ONLY the number of the action you
-choose. Do not explain your choice. Just the number."""
+SYSTEM_PROMPT = """You are a biological resource coordinator managing blood, platelets, plasma, and organ allocation across a 3-hospital network in Bengaluru.
+
+You will receive:
+•  Your hospital's current inventory (PARTIAL OBSERVABILITY — you cannot see other hospitals unless they share data)
+•  A patient queue with urgency: DYING > CRITICAL > URGENT > MODERATE > STABLE
+•  ABO compatibility constraints for blood/plasma
+•  HLA match scores for bone marrow (6 loci, 0-12 scale)
+•  Organ viability windows: heart/lung 4-6hr, liver 24hr, kidney 36hr
+•  Available transport routes with timing:
+  * STANDARD route: full transit time (~40 min average)
+  * GREEN_CORRIDOR: BBMP traffic signal override, 31% faster (limited tokens)
+  * EMERGENCY: Police escort, 51% faster (1 use per episode, DYING patients only)
+•  Cooperation tokens: sharing your inventory data earns +1.5 reward per event
+
+CRITICAL RULES:
+1. DYING patients always take priority — inaction while DYING patient has compatible resources = -4.0 penalty
+2. Use GREEN_CORRIDOR when organ viability < 40% and transit > 20 min
+3. Use EMERGENCY only for DYING patients — misuse wastes the token
+4. SHARE inventory data: cooperation reward is strictly positive expected value
+5. Choose ONE numbered action from the list provided
+
+Think: urgency → compatibility → viability remaining → route choice → cooperation"""
 
 
 def format_observation_as_prompt(obs: dict, episode_stats: dict = None) -> str:
