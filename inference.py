@@ -530,7 +530,7 @@ def run_training():
 
     current_task = "blood_bank_manager"
     print(f"\n--- Starting Curriculum Phase 1: {current_task} ---")
-    train_dataset = generate_training_prompts(current_task, num_samples=100)
+    train_dataset = generate_training_prompts(current_task, num_samples=200)
 
     training_args = GRPOConfig(
         output_dir="outputs/vitalchain-grpo",
