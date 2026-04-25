@@ -426,6 +426,8 @@ A mass-casualty event overlaps with peak traffic gridlock. Default routing **fai
 
 *Theme #1: Multi-Agent Interactions*
 
+🔗 **Live Demo:** [https://huggingface.co/spaces/singhhrishabhh/VitalChain](https://huggingface.co/spaces/singhhrishabhh/VitalChain)
+
 *VitalChain — Because every minute counts.* 🫀
 
 </div>
