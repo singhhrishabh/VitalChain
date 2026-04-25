@@ -4,13 +4,16 @@
 """
 VitalChain Environment — Core Logic.
 
-The RL environment where an LLM agent allocates biological resources
-across a multi-hospital network. Implements reset(), step(), state().
+OpenEnv-compliant RL environment where an LLM agent allocates biological
+resources across a multi-hospital network.
 
-Core loop:
-  reset(task_id) → observation dict
-  step(action)   → StepResult dict (observation, rewards, done, info)
-  state()        → debug/render state dict
+Implements the OpenEnv Environment interface:
+  reset()  → VitalChainObservation
+  step()   → VitalChainObservation (with reward + done)
+  state    → VitalChainState dict
+
+Inherits from openenv_core.Environment when available (Python 3.10+),
+otherwise uses a compatible local base class.
 """
 
 import os
@@ -36,37 +39,61 @@ from rewards import (
 )
 from tasks import get_config
 
+# ── OpenEnv base class (graceful fallback for Python 3.9) ─────────────────────
+try:
+    from openenv_core.env_server.interfaces import Environment as _BaseEnv
+except Exception:
+    class _BaseEnv:
+        """Local OpenEnv-compatible base when openenv_core is unavailable."""
+        pass
 
-class VitalChainEnvironment:
+
+class VitalChainEnvironment(_BaseEnv):
     """
     OpenEnv-compliant RL environment for biological resource allocation.
 
     The agent controls hospital_0 and must allocate blood products, plasma,
     bone marrow, and organs to patients against real expiry clocks, ABO/HLA
     compatibility constraints, and patient urgency scores.
+
+    Conforms to the OpenEnv interface:
+      reset()          → VitalChainObservation
+      step(action)     → VitalChainObservation
+      state (property) → dict
     """
 
-    def __init__(self, training_mode: bool = False):
+    def __init__(
+        self,
+        num_hospitals: int = 3,
+        task_id: str = "blood_bank_manager",
+        training_mode: bool = False,
+    ):
         """
         Initialize VitalChain environment.
 
         Args:
+            num_hospitals: Number of hospitals in the network (1, 3, or 5).
+                          Overridden by task config if task specifies n_hospitals.
+            task_id: Default task to use when reset() is called without args.
             training_mode: When True, bypasses computationally heavy operations
                           (audit ledger hashing, telemetry simulation) for faster
                           GRPO training throughput. Use False for evaluation/demo.
         """
         self.training_mode = training_mode
+        self._default_num_hospitals = num_hospitals
+        self._default_task_id = task_id
         self.hospitals: dict = {}
-        self.task_id: str = "blood_bank_manager"
+        self.task_id: str = task_id
         self.config: dict = {}
         self.step_count: int = 0
+        self.episode_id: str = ""
         self.episode_time_hours: float = 0.0
         self.episode_reward_history: list = []
         self._last_available_actions: list = []
-        self._mass_casualty_triggered: bool = False     # #3: track if surge happened
-        self._emergency_tokens_used: int = 0              # Golden Hour: emergency route limiter
-        self._green_corridor_tokens_used: int = 0         # Golden Hour: green corridor limiter
-        self._golden_hour_stats: dict = {                 # Golden Hour: transport stats
+        self._mass_casualty_triggered: bool = False
+        self._emergency_tokens_used: int = 0
+        self._green_corridor_tokens_used: int = 0
+        self._golden_hour_stats: dict = {
             "average_transport_delay_minutes": 0.0,
             "viability_wasted_percent": 0.0,
             "green_corridors_activated": 0,
@@ -75,7 +102,7 @@ class VitalChainEnvironment:
             "hoarding_events": 0,
             "delay_reduction_vs_baseline": None,
         }
-        self._episode_stats: dict = {                    # #6: historical context
+        self._episode_stats: dict = {
             "patients_saved": 0,
             "patients_lost": 0,
             "resources_used": 0,
@@ -112,14 +139,25 @@ class VitalChainEnvironment:
 
     # ── reset() ───────────────────────────────────────────────────────────────
 
-    def reset(self, task_id: str = "blood_bank_manager", **kwargs) -> dict:
+    def reset(self, task_id: str = None, **kwargs) -> dict:
         """
         Start a fresh episode. Generate hospitals, patients, inventory.
-        Returns the first observation as a dict.
+
+        OpenEnv interface: reset() → VitalChainObservation (as dict).
+
+        Args:
+            task_id: Task config to use. Defaults to self._default_task_id.
+
+        Returns:
+            Observation dict with hospital_id, inventory, patients,
+            available_actions, step_number=0, episode_time_hours=0.0.
         """
+        if task_id is None:
+            task_id = self._default_task_id
         self.task_id = task_id
         self.config = get_config(task_id)
         self.step_count = 0
+        self.episode_id = str(uuid.uuid4())
         self.episode_time_hours = 0.0
         self.episode_reward_history = []
         self.hospitals = {}
@@ -181,6 +219,16 @@ class VitalChainEnvironment:
     def step(self, action: dict) -> dict:
         """
         Execute one action. Advance time. Score rewards. Return next observation.
+
+        OpenEnv interface: step(action) → StepResult dict.
+
+        The step loop:
+          1. Parse action_index from agent output
+          2. Execute action (allocate/transfer/transport/query/wait)
+          3. Advance clocks by time_per_step_hours
+          4. Expire resources, escalate patient urgency, check deaths
+          5. Compute all 5 reward components
+          6. Check done: episode ends at max_steps or all patients resolved
 
         Args:
             action: {"action_index": int} or {"action": {"action_index": int}}
@@ -307,8 +355,12 @@ class VitalChainEnvironment:
 
     @property
     def state(self) -> dict:
-        """Return full environment state for debugging/rendering."""
+        """Return full environment state for debugging/rendering.
+
+        OpenEnv interface: state → VitalChainState dict.
+        """
         return {
+            "episode_id": self.episode_id,
             "task_id": self.task_id,
             "step_count": self.step_count,
             "episode_time_hours": self.episode_time_hours,

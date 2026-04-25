@@ -4,12 +4,15 @@
 """
 FastAPI application for VitalChain-Env.
 
-Provides HTTP endpoints compatible with OpenEnv HTTPEnvClient:
+OpenEnv-compliant server with HTTP endpoints:
 - POST /reset — Initialize new episode
 - POST /step — Execute action
 - GET  /state — Episode metadata
 - GET  /health — Health check
 - GET  /schema — Action/observation schema
+
+Uses create_fastapi_app() from openenv_core when available,
+otherwise builds equivalent endpoints manually for compatibility.
 """
 
 import os
@@ -26,19 +29,35 @@ from fastapi.responses import FileResponse
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from server.environment import VitalChainEnvironment
+from models import VitalChainAction, VitalChainObservation
 
-# Create environment instance
-env = VitalChainEnvironment()
-
-app = FastAPI(
-    title="VitalChain-Env",
-    description=(
-        "OpenEnv-compliant RL environment for biological resource allocation. "
-        "Train LLM agents to allocate blood products, plasma, bone marrow, "
-        "and organs across a multi-hospital network."
-    ),
-    version="1.0.0",
+# ── Create environment instance ──────────────────────────────────────────────
+env = VitalChainEnvironment(
+    num_hospitals=3,
+    task_id="blood_bank_manager",
 )
+
+# ── Try OpenEnv native app creation, fall back to manual ─────────────────────
+_openenv_app = None
+try:
+    from openenv_core.env_server import create_fastapi_app
+    _openenv_app = create_fastapi_app(env, VitalChainAction, VitalChainObservation)
+except Exception:
+    _openenv_app = None
+
+if _openenv_app is not None:
+    app = _openenv_app
+else:
+    # Manual FastAPI app — functionally identical to OpenEnv's create_fastapi_app
+    app = FastAPI(
+        title="VitalChain-Env",
+        description=(
+            "OpenEnv-compliant RL environment for biological resource allocation. "
+            "Train LLM agents to allocate blood products, plasma, bone marrow, "
+            "and organs across a multi-hospital network."
+        ),
+        version="1.0.0",
+    )
 
 # CORS for HF Spaces and local development
 app.add_middleware(
@@ -55,106 +74,89 @@ if STATIC_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 
-@app.post("/reset")
-async def reset(request: Dict[str, Any] = Body(default={})):
-    """
-    Reset the environment to initial state.
+# ── OpenEnv endpoints (only registered if not using create_fastapi_app) ──────
+if _openenv_app is None:
 
-    Body:
-        {"task_id": "blood_bank_manager"}  (optional, defaults to blood_bank_manager)
+    @app.post("/reset")
+    async def reset(request: Dict[str, Any] = Body(default={})):
+        """
+        Reset the environment to initial state.
 
-    Returns:
-        {"observation": {...}, "reward": 0.0, "done": false}
-    """
-    task_id = request.get("task_id", "blood_bank_manager")
-    obs = env.reset(task_id=task_id)
-    return {"observation": obs, "reward": 0.0, "done": False}
+        Body:
+            {"task_id": "blood_bank_manager"}  (optional)
 
+        Returns:
+            {"observation": {...}, "reward": 0.0, "done": false}
+        """
+        task_id = request.get("task_id", None)
+        obs = env.reset(task_id=task_id)
+        return {"observation": obs, "reward": 0.0, "done": False}
 
-@app.post("/step")
-async def step(request: Dict[str, Any] = Body(...)):
-    """
-    Execute an action in the environment.
+    @app.post("/step")
+    async def step(request: Dict[str, Any] = Body(...)):
+        """
+        Execute an action in the environment.
 
-    Body:
-        {"action": {"action_index": 2}}
-      or
-        {"action_index": 2}
+        Body:
+            {"action": {"action_index": 2}}  or  {"action_index": 2}
 
-    Returns:
-        {
-            "observation": {...},
-            "reward_components": {"patient": f, "waste": f, "compat": f, "equity": f, ...},
-            "total_reward": f,
-            "done": bool,
-            "info": {...}
+        Returns:
+            {observation, reward_components, total_reward, done, info}
+        """
+        result = env.step(request)
+        return result
+
+    @app.get("/state")
+    async def get_state():
+        """Return current environment state for debugging."""
+        state = env.state
+        state["golden_hour_stats"] = getattr(env, "_golden_hour_stats", {})
+        return state
+
+    @app.get("/health")
+    async def health():
+        """Health check endpoint."""
+        return {
+            "status": "healthy",
+            "environment": "vitalchain-env",
+            "version": "1.0.0",
         }
-    """
-    result = env.step(request)
-    return result
 
-
-@app.get("/state")
-async def get_state():
-    """Return current environment state for debugging."""
-    state = env.state
-    # Inject Golden Hour transport statistics — these become the demo dashboard numbers
-    state["golden_hour_stats"] = getattr(env, "_golden_hour_stats", {
-        "average_transport_delay_minutes": 0.0,   # tracks across episode
-        "viability_wasted_percent": 0.0,           # % of organ viability lost in transit
-        "green_corridors_activated": 0,
-        "emergency_escorts_used": 0,
-        "cooperation_events": 0,                   # times hospitals shared data
-        "hoarding_events": 0,                      # times hospitals refused to share
-        # The pitch number: "VitalChain cuts average delay by X%"
-        # Calculated as: (baseline_delay - trained_delay) / baseline_delay * 100
-        # Fill this in after training: typically 15-25% improvement
-        "delay_reduction_vs_baseline": None,       # set after training
-    })
-    return state
-
-
-@app.get("/health")
-async def health():
-    """Health check endpoint."""
-    return {"status": "healthy", "environment": "vitalchain-env", "version": "1.0.0"}
-
-
-@app.get("/schema")
-async def schema():
-    """Return environment action/observation schema for discoverability."""
-    return {
-        "environment": "vitalchain-env",
-        "version": "1.0.0",
-        "action_schema": {
-            "type": "object",
-            "properties": {
-                "action_index": {
-                    "type": "integer",
-                    "description": "Index of the chosen action from available_actions list",
+    @app.get("/schema")
+    async def schema():
+        """Return environment action/observation schema for discoverability."""
+        return {
+            "environment": "vitalchain-env",
+            "version": "1.0.0",
+            "action_schema": {
+                "type": "object",
+                "properties": {
+                    "action_index": {
+                        "type": "integer",
+                        "description": "Index of the chosen action from available_actions list",
+                    },
+                },
+                "required": ["action_index"],
+            },
+            "observation_schema": {
+                "type": "object",
+                "properties": {
+                    "hospital_id": {"type": "string"},
+                    "inventory_summary": {"type": "array"},
+                    "patient_queue": {"type": "array"},
+                    "available_actions": {"type": "array"},
+                    "active_transports": {"type": "array"},
+                    "step_number": {"type": "integer"},
+                    "episode_time_hours": {"type": "number"},
+                    "task_id": {"type": "string"},
                 },
             },
-            "required": ["action_index"],
-        },
-        "observation_schema": {
-            "type": "object",
-            "properties": {
-                "hospital_id": {"type": "string"},
-                "inventory_summary": {"type": "array"},
-                "patient_queue": {"type": "array"},
-                "available_actions": {"type": "array"},
-                "active_transports": {"type": "array"},
-                "step_number": {"type": "integer"},
-                "episode_time_hours": {"type": "number"},
-                "task_id": {"type": "string"},
-            },
-        },
-        "tasks": [
-            {"id": "blood_bank_manager", "difficulty": "easy"},
-            {"id": "regional_organ_coordinator", "difficulty": "medium"},
-            {"id": "crisis_response", "difficulty": "hard"},
-        ],
-    }
+            "tasks": [
+                {"id": "blood_bank_manager", "difficulty": "easy"},
+                {"id": "regional_organ_coordinator", "difficulty": "medium"},
+                {"id": "crisis_response", "difficulty": "hard"},
+            ],
+        }
 
 
 @app.get("/")
