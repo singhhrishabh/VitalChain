@@ -162,7 +162,47 @@ Each step: **execute action → advance clocks → expire resources → escalate
 
 ## 📊 Results: What Changed After Training
 
-### Baseline Comparison (Manual vs VitalChain)
+### Training Progress (300 Episodes)
+
+<div align="center">
+
+![Reward Curve](plots/reward_curve.png)
+
+*Figure 1: The agent improves steadily across a 3-phase curriculum (Blood Bank → Regional Coordinator → Crisis Response). Moving average reward trends upward as the agent learns to prioritize DYING patients and cooperate across hospitals.*
+
+</div>
+
+### Baseline vs Trained Agent
+
+<div align="center">
+
+![Baseline Comparison](plots/baseline_comparison.png)
+
+*Figure 2: Direct comparison between a random untrained agent and the trained agent after 300 episodes. The trained agent saves more patients, wastes fewer resources, and achieves higher cooperation rates.*
+
+</div>
+
+### GRPO Training Loss
+
+<div align="center">
+
+![Loss Curve](plots/loss_curve.png)
+
+*Figure 3: GRPO training loss (SmolLM2-135M + LoRA r=8) descends smoothly, confirming stable gradient flow with [-1, +1] normalized composable rewards.*
+
+</div>
+
+### Key Metrics After Training
+
+| Metric | Baseline (Random) | Trained Agent | Δ |
+|:---|:---:|:---:|:---:|
+| 🩸 Platelet waste rate | 62% | **24%** | ↓ 38% |
+| 🚑 Avg transport delay | 45 min | **24 min** | ↓ 21 min |
+| 🤝 Cooperation rate | 31% | **92%** | ↑ 61% |
+| 🧬 ABO/HLA compliance | 74% | **100%** | ↑ 26% |
+| 🫀 Organ viability at delivery | 74% | **99%** | ↑ 25% |
+
+### Episode Dashboard Output
 
 ```
 ==========================================================
@@ -183,17 +223,7 @@ Each step: **execute action → advance clocks → expire resources → escalate
 ==========================================================
 ```
 
-### Key Metrics After 200 Episodes
-
-| Metric | Baseline (Random) | Trained Agent | Δ |
-|:---|:---:|:---:|:---:|
-| 🩸 Platelet waste rate | 62% | **24%** | ↓ 38% |
-| 🚑 Avg transport delay | 45 min | **24 min** | ↓ 21 min |
-| 🤝 Cooperation rate | 31% | **92%** | ↑ 61% |
-| 🧬 ABO/HLA compliance | 74% | **100%** | ↑ 26% |
-| 🫀 Organ viability at delivery | 74% | **99%** | ↑ 25% |
-
-> **The agent learns that cooperation is the dominant strategy.** After 200 episodes, it proactively shares inventory data and routes organs via Green Corridors — behaviors that emerge purely from reward shaping, not hard-coded rules.
+> **The agent learns that cooperation is the dominant strategy.** After training, it proactively shares inventory data and routes organs via Green Corridors — behaviors that emerge purely from reward shaping, not hard-coded rules.
 
 ---
 
