@@ -1,0 +1,3 @@
+name: vitalchain_env
+version: "1.0.0"
+description: "Biological resource allocation RL environment — train LLM agents to allocate blood products, plasma, bone marrow, and organs across a multi-hospital network against real expiry clocks, ABO/HLA compatibility constraints, and patient urgency scores."
