@@ -25,6 +25,39 @@
 
 ---
 
+## 🏆 Hackathon Theme Alignment
+
+<table>
+<tr>
+<td width="50%">
+
+### 🥇 Primary: Theme #1 — Multi-Agent Interactions
+
+Environments for this theme involve **cooperation, competition, negotiation, and coalition formation**. VitalChain directly addresses this:
+
+- **Cooperation vs Hoarding** — Hospitals are semi-autonomous agents that must choose to share inventory data (+1.5 reward) or hoard (-0.3 penalty)
+- **Partial Observability** — No hospital can see another's inventory; the agent must query and negotiate
+- **Theory of Mind** — Agent must infer which hospitals likely have compatible resources based on partial signals
+- **Emergent Strategy** — Cooperation emerges purely from RL reward shaping, not hard-coded rules. After 200 episodes, cooperation rate reaches **92%**
+
+</td>
+<td width="50%">
+
+### 🥈 Secondary: Theme #2 — Long-Horizon Planning
+
+VitalChain requires **deep, multi-step reasoning with sparse and delayed rewards**:
+
+- **48–200 step episodes** with cascading consequences (organ expires → patient dies → penalty)
+- **Resource token management** — Green Corridor and Emergency route tokens are limited per episode; using them too early = no safety net later
+- **Ischemic time pressure** — Every step ages all organs; the agent must plan allocations across the entire episode horizon
+- **Mass casualty surge** — A sudden influx of DYING patients at step 30-50 tests long-horizon resource planning
+
+</td>
+</tr>
+</table>
+
+---
+
 ## 🧭 The Problem: Why This Matters
 
 > **18 people die every day in India** waiting for an organ transplant. Not because organs aren't available — but because the coordination system is broken.
