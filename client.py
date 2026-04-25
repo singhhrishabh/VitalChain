@@ -109,8 +109,8 @@ def format_observation_as_prompt(obs: dict, episode_stats: dict = None) -> str:
     This is the exact format the LLM agent receives during training.
     The agent should respond with a single integer (action index).
 
-    #6: Enhanced with urgency countdowns, compatibility warnings,
-        and historical episode context.
+    Phase 6: Enhanced with HLA types, ischemic time, viability scores,
+             and active Green Corridor status for informed decision-making.
     """
     lines = []
     lines.append(
@@ -118,7 +118,7 @@ def format_observation_as_prompt(obs: dict, episode_stats: dict = None) -> str:
         f"(Hour {obs['episode_time_hours']}) ==="
     )
 
-    # #6: Episode context — what's happened so far
+    # Episode context — what's happened so far
     if episode_stats:
         saved = episode_stats.get("patients_saved", 0)
         lost = episode_stats.get("patients_lost", 0)
@@ -128,6 +128,14 @@ def format_observation_as_prompt(obs: dict, episode_stats: dict = None) -> str:
             f"  EPISODE PROGRESS: {saved} saved, {lost} lost | "
             f"{used} resources used, {expired} expired"
         )
+
+    # Green Corridor & Emergency token status
+    gc_used = episode_stats.get("green_corridors_activated", 0) if episode_stats else 0
+    em_used = episode_stats.get("emergency_escorts_used", 0) if episode_stats else 0
+    lines.append(
+        f"  ROUTING TOKENS: Green Corridor {gc_used}/3 used | "
+        f"Emergency {em_used}/1 used"
+    )
     lines.append("")
 
     lines.append("YOUR INVENTORY:")
@@ -141,11 +149,31 @@ def format_observation_as_prompt(obs: dict, episode_stats: dict = None) -> str:
             donor = item.get("donor_type", "")
             if donor == "living":
                 flags.append("♻️ LIVING DONOR")
+
+            # Phase 6: Ischemic time and viability
+            ischemic = item.get("ischemic_hours", 0)
+            viability = item.get("viability_pct", 100)
+            if viability < 40:
+                flags.append(f"⚠️ VIABILITY {viability}%")
+            elif viability < 70:
+                flags.append(f"🟡 VIABILITY {viability}%")
+
             flag_str = f" [{', '.join(flags)}]" if flags else ""
+
+            # Phase 6: Show HLA type for organs/marrow
+            hla_str = ""
+            hla = item.get("hla_type", "")
+            if hla:
+                hla_str = f", HLA:{hla}"
+
+            ischemic_str = ""
+            if ischemic > 0:
+                ischemic_str = f", ischemic:{ischemic:.1f}h"
+
             lines.append(
                 f"  {item['type'].upper()} ({item['blood_type']}): "
                 f"{item['units']} units, expires in "
-                f"{item['expiry_hours']}h{flag_str}"
+                f"{item['expiry_hours']}h{hla_str}{ischemic_str}{flag_str}"
             )
     else:
         lines.append("  (empty — no resources available)")
@@ -155,13 +183,13 @@ def format_observation_as_prompt(obs: dict, episode_stats: dict = None) -> str:
         for p in obs["patient_queue"]:
             urgency_stars = "!" * p["urgency"]
             needs_str = ", ".join(p["needs"])
-            # #6: Show needs remaining vs total for multi-need patients
+            # Show needs remaining vs total for multi-need patients
             needs_display = needs_str
             if p.get("needs_total", 1) > 1:
                 remaining = len(p["needs"])
                 total = p["needs_total"]
                 needs_display = f"{needs_str} ({remaining}/{total} remaining)"
-            # #6: Urgency countdown warning
+            # Urgency countdown warning
             warn = ""
             if p["urgency"] >= 5:
                 hrs_dying = p.get("hours_at_dying", 0)
@@ -170,15 +198,34 @@ def format_observation_as_prompt(obs: dict, episode_stats: dict = None) -> str:
             elif p["urgency"] >= 4:
                 warn = " ⏰ Escalating soon"
 
+            # Phase 6: Show HLA type for patients needing organs/marrow
+            hla_str = ""
+            patient_hla = p.get("hla_type", "")
+            if patient_hla:
+                hla_str = f", HLA:{patient_hla}"
+
             lines.append(
                 f"  [{urgency_stars} {p['urgency_name']}] "
                 f"Patient {p['patient_id']}: "
                 f"needs {needs_display}, "
-                f"blood type {p['blood_type']}, "
+                f"blood type {p['blood_type']}{hla_str}, "
                 f"waiting {p['hours_waiting']}h{warn}"
             )
     else:
         lines.append("  (no patients — all treated or deceased)")
+
+    # Phase 6: Active transports with viability tracking
+    transports = obs.get("active_transports", [])
+    if transports:
+        lines.append("\nACTIVE TRANSPORTS:")
+        for t in transports:
+            route_type = t.get("route_type", "standard")
+            route_icon = {"green_corridor": "🟢", "emergency": "🔴"}.get(route_type, "⚪")
+            lines.append(
+                f"  {route_icon} {t.get('from', '?')} → {t.get('to', '?')}: "
+                f"{t.get('hours_remaining', 0):.1f}h remaining "
+                f"[{route_type.upper()}]"
+            )
 
     lines.append("\nAVAILABLE ACTIONS:")
     for action in obs["available_actions"]:
@@ -186,3 +233,4 @@ def format_observation_as_prompt(obs: dict, episode_stats: dict = None) -> str:
 
     lines.append("\nEnter action number: ")
     return "\n".join(lines)
+
