@@ -1,0 +1,562 @@
+[
+  {
+    "episode": 0,
+    "prompts": [
+      "=== VitalChain Step 0 (Hour 0.0) ===\n  EPISODE PROGRESS: 0 saved, 0 lost | 0 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 689.7h\n  RBC (O+): 3 units, expires in 838.2h\n  RBC (O+): 2 units, expires in 729.3h\n  RBC (O+): 3 units, expires in 935.2h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 250fba: needs rbc, blood type O+, waiting 0.0h\n  [!!! URGENT] Patient 94efa9: needs rbc, blood type O+, waiting 0.0h\n  [!!!! CRITICAL] Patient b1b75f: needs rbc, blood type O+, waiting 0.0h \u23f0 Escalating soon\n  [!!! URGENT] Patient a06daa: needs rbc, blood type O+, waiting 0.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient b75f [CRITICAL urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient b75f [CRITICAL urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient b75f [CRITICAL urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient b75f [CRITICAL urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient efa9 [URGENT urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient efa9 [URGENT urgency, blood type O+]\n  8. Give 2u rbc (O+) to Patient efa9 [URGENT urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient efa9 [URGENT urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient 6daa [URGENT urgency, blood type O+]\n  11. Give 2u rbc (O+) to Patient 6daa [URGENT urgency, blood type O+]\n  12. Give 2u rbc (O+) to Patient 6daa [URGENT urgency, blood type O+]\n  13. Give 2u rbc (O+) to Patient 6daa [URGENT urgency, blood type O+]\n  14. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n  15. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n  16. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n  17. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 1 (Hour 1.0) ===\n  EPISODE PROGRESS: 1 saved, 0 lost | 2 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 688.7h\n  RBC (O+): 3 units, expires in 837.2h\n  RBC (O+): 2 units, expires in 728.3h\n  RBC (O+): 3 units, expires in 934.2h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 250fba: needs rbc, blood type O+, waiting 1.0h\n  [!!! URGENT] Patient 94efa9: needs rbc, blood type O+, waiting 1.0h\n  [!!! URGENT] Patient a06daa: needs rbc, blood type O+, waiting 1.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient efa9 [URGENT urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient efa9 [URGENT urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient efa9 [URGENT urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient efa9 [URGENT urgency, blood type O+]\n  6. Give 1u rbc (O+) to Patient 6daa [URGENT urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient 6daa [URGENT urgency, blood type O+]\n  8. Give 2u rbc (O+) to Patient 6daa [URGENT urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient 6daa [URGENT urgency, blood type O+]\n  10. Give 1u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n  11. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n  12. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n  13. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 2 (Hour 2.0) ===\n  EPISODE PROGRESS: 2 saved, 0 lost | 3 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 836.2h\n  RBC (O+): 2 units, expires in 727.3h\n  RBC (O+): 3 units, expires in 933.2h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 250fba: needs rbc, blood type O+, waiting 2.0h\n  [!!! URGENT] Patient a06daa: needs rbc, blood type O+, waiting 2.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 6daa [URGENT urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient 6daa [URGENT urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient 6daa [URGENT urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 3 (Hour 3.0) ===\n  EPISODE PROGRESS: 3 saved, 0 lost | 5 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 835.2h\n  RBC (O+): 2 units, expires in 726.3h\n  RBC (O+): 3 units, expires in 932.2h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 250fba: needs rbc, blood type O+, waiting 3.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]\n\nEnter action number: "
+    ],
+    "actions": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "rewards": [
+      3.5,
+      2.5,
+      2.5,
+      1.0
+    ],
+    "reward_components": [
+      {
+        "patient": 3.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 3.5
+      },
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 1.0,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.0
+      }
+    ],
+    "total_reward": 9.5
+  },
+  {
+    "episode": 1,
+    "prompts": [
+      "=== VitalChain Step 0 (Hour 0.0) ===\n  EPISODE PROGRESS: 0 saved, 0 lost | 0 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 409.2h\n  RBC (O+): 1 units, expires in 367.7h\n  RBC (O+): 1 units, expires in 363.5h\n  RBC (O+): 1 units, expires in 592.8h\n\nPATIENT QUEUE:\n  [! STABLE] Patient c261f5: needs rbc, blood type O+, waiting 0.0h\n  [!!! URGENT] Patient c20599: needs rbc, blood type O+, waiting 0.0h\n  [!!! URGENT] Patient 05a6c3: needs rbc, blood type O+, waiting 0.0h\n  [!!! URGENT] Patient 358079: needs rbc, blood type O+, waiting 0.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 0599 [URGENT urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 0599 [URGENT urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient 0599 [URGENT urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 0599 [URGENT urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient a6c3 [URGENT urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient a6c3 [URGENT urgency, blood type O+]\n  8. Give 1u rbc (O+) to Patient a6c3 [URGENT urgency, blood type O+]\n  9. Give 1u rbc (O+) to Patient a6c3 [URGENT urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient 8079 [URGENT urgency, blood type O+]\n  11. Give 1u rbc (O+) to Patient 8079 [URGENT urgency, blood type O+]\n  12. Give 1u rbc (O+) to Patient 8079 [URGENT urgency, blood type O+]\n  13. Give 1u rbc (O+) to Patient 8079 [URGENT urgency, blood type O+]\n  14. Give 2u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n  15. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n  16. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n  17. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 1 (Hour 1.0) ===\n  EPISODE PROGRESS: 1 saved, 0 lost | 2 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 408.2h\n  RBC (O+): 1 units, expires in 366.7h\n  RBC (O+): 1 units, expires in 362.5h\n  RBC (O+): 1 units, expires in 591.8h\n\nPATIENT QUEUE:\n  [! STABLE] Patient c261f5: needs rbc, blood type O+, waiting 1.0h\n  [!!! URGENT] Patient 05a6c3: needs rbc, blood type O+, waiting 1.0h\n  [!!! URGENT] Patient 358079: needs rbc, blood type O+, waiting 1.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient a6c3 [URGENT urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient a6c3 [URGENT urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient a6c3 [URGENT urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient a6c3 [URGENT urgency, blood type O+]\n  6. Give 1u rbc (O+) to Patient 8079 [URGENT urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient 8079 [URGENT urgency, blood type O+]\n  8. Give 1u rbc (O+) to Patient 8079 [URGENT urgency, blood type O+]\n  9. Give 1u rbc (O+) to Patient 8079 [URGENT urgency, blood type O+]\n  10. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n  11. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n  12. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n  13. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 2 (Hour 2.0) ===\n  EPISODE PROGRESS: 2 saved, 0 lost | 3 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 365.7h\n  RBC (O+): 1 units, expires in 361.5h\n  RBC (O+): 1 units, expires in 590.8h\n\nPATIENT QUEUE:\n  [! STABLE] Patient c261f5: needs rbc, blood type O+, waiting 2.0h\n  [!!! URGENT] Patient 358079: needs rbc, blood type O+, waiting 2.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 8079 [URGENT urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 8079 [URGENT urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient 8079 [URGENT urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n  6. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 3 (Hour 3.0) ===\n  EPISODE PROGRESS: 3 saved, 0 lost | 4 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 360.5h\n  RBC (O+): 1 units, expires in 589.8h\n\nPATIENT QUEUE:\n  [! STABLE] Patient c261f5: needs rbc, blood type O+, waiting 3.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 61f5 [STABLE urgency, blood type O+]\n\nEnter action number: "
+    ],
+    "actions": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "rewards": [
+      2.5,
+      2.5,
+      2.5,
+      1.0
+    ],
+    "reward_components": [
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 1.0,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.0
+      }
+    ],
+    "total_reward": 8.5
+  },
+  {
+    "episode": 2,
+    "prompts": [
+      "=== VitalChain Step 0 (Hour 0.0) ===\n  EPISODE PROGRESS: 0 saved, 0 lost | 0 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 2 units, expires in 509.9h\n  RBC (O+): 1 units, expires in 962.6h\n  RBC (O+): 1 units, expires in 989.2h\n  RBC (O+): 3 units, expires in 518.6h\n\nPATIENT QUEUE:\n  [!!! URGENT] Patient 5de473: needs rbc, blood type O+, waiting 0.0h\n  [!! MODERATE] Patient 1ca0be: needs rbc, blood type O+, waiting 0.0h\n  [!! MODERATE] Patient 1e65bb: needs rbc, blood type O+, waiting 0.0h\n  [!!! URGENT] Patient 60da3e: needs rbc, blood type O+, waiting 0.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient e473 [URGENT urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient e473 [URGENT urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient e473 [URGENT urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient e473 [URGENT urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient da3e [URGENT urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient da3e [URGENT urgency, blood type O+]\n  8. Give 1u rbc (O+) to Patient da3e [URGENT urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient da3e [URGENT urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient a0be [MODERATE urgency, blood type O+]\n  11. Give 1u rbc (O+) to Patient a0be [MODERATE urgency, blood type O+]\n  12. Give 1u rbc (O+) to Patient a0be [MODERATE urgency, blood type O+]\n  13. Give 2u rbc (O+) to Patient a0be [MODERATE urgency, blood type O+]\n  14. Give 2u rbc (O+) to Patient 65bb [MODERATE urgency, blood type O+]\n  15. Give 1u rbc (O+) to Patient 65bb [MODERATE urgency, blood type O+]\n  16. Give 1u rbc (O+) to Patient 65bb [MODERATE urgency, blood type O+]\n  17. Give 2u rbc (O+) to Patient 65bb [MODERATE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 1 (Hour 1.0) ===\n  EPISODE PROGRESS: 1 saved, 0 lost | 2 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 961.6h\n  RBC (O+): 1 units, expires in 988.2h\n  RBC (O+): 3 units, expires in 517.6h\n\nPATIENT QUEUE:\n  [!! MODERATE] Patient 1ca0be: needs rbc, blood type O+, waiting 1.0h\n  [!! MODERATE] Patient 1e65bb: needs rbc, blood type O+, waiting 1.0h\n  [!!! URGENT] Patient 60da3e: needs rbc, blood type O+, waiting 1.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient da3e [URGENT urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient da3e [URGENT urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient da3e [URGENT urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient a0be [MODERATE urgency, blood type O+]\n  6. Give 1u rbc (O+) to Patient a0be [MODERATE urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient a0be [MODERATE urgency, blood type O+]\n  8. Give 1u rbc (O+) to Patient 65bb [MODERATE urgency, blood type O+]\n  9. Give 1u rbc (O+) to Patient 65bb [MODERATE urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient 65bb [MODERATE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 2 (Hour 2.0) ===\n  EPISODE PROGRESS: 2 saved, 0 lost | 3 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 987.2h\n  RBC (O+): 3 units, expires in 516.6h\n\nPATIENT QUEUE:\n  [!! MODERATE] Patient 1ca0be: needs rbc, blood type O+, waiting 2.0h\n  [!! MODERATE] Patient 1e65bb: needs rbc, blood type O+, waiting 2.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient a0be [MODERATE urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient a0be [MODERATE urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient 65bb [MODERATE urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient 65bb [MODERATE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 3 (Hour 3.0) ===\n  EPISODE PROGRESS: 3 saved, 0 lost | 4 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 515.6h\n\nPATIENT QUEUE:\n  [!! MODERATE] Patient 1e65bb: needs rbc, blood type O+, waiting 3.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 65bb [MODERATE urgency, blood type O+]\n\nEnter action number: "
+    ],
+    "actions": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "rewards": [
+      2.5,
+      2.5,
+      1.5,
+      1.5
+    ],
+    "reward_components": [
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 1.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.5
+      },
+      {
+        "patient": 1.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.5
+      }
+    ],
+    "total_reward": 8.0
+  },
+  {
+    "episode": 3,
+    "prompts": [
+      "=== VitalChain Step 0 (Hour 0.0) ===\n  EPISODE PROGRESS: 0 saved, 0 lost | 0 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 614.4h\n  RBC (O+): 3 units, expires in 606.9h\n  RBC (O+): 3 units, expires in 774.8h\n  RBC (O+): 2 units, expires in 831.4h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 485038: needs rbc, blood type O+, waiting 0.0h\n  [!!! URGENT] Patient 38a935: needs rbc, blood type O+, waiting 0.0h\n  [!!! URGENT] Patient 80bd8a: needs rbc, blood type O+, waiting 0.0h\n  [!!! URGENT] Patient 41ca99: needs rbc, blood type O+, waiting 0.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient a935 [URGENT urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient a935 [URGENT urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient a935 [URGENT urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient a935 [URGENT urgency, blood type O+]\n  6. Give 1u rbc (O+) to Patient bd8a [URGENT urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient bd8a [URGENT urgency, blood type O+]\n  8. Give 2u rbc (O+) to Patient bd8a [URGENT urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient bd8a [URGENT urgency, blood type O+]\n  10. Give 1u rbc (O+) to Patient ca99 [URGENT urgency, blood type O+]\n  11. Give 2u rbc (O+) to Patient ca99 [URGENT urgency, blood type O+]\n  12. Give 2u rbc (O+) to Patient ca99 [URGENT urgency, blood type O+]\n  13. Give 2u rbc (O+) to Patient ca99 [URGENT urgency, blood type O+]\n  14. Give 1u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n  15. Give 2u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n  16. Give 2u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n  17. Give 2u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 1 (Hour 1.0) ===\n  EPISODE PROGRESS: 1 saved, 0 lost | 1 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 605.9h\n  RBC (O+): 3 units, expires in 773.8h\n  RBC (O+): 2 units, expires in 830.4h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 485038: needs rbc, blood type O+, waiting 1.0h\n  [!!! URGENT] Patient 80bd8a: needs rbc, blood type O+, waiting 1.0h\n  [!!! URGENT] Patient 41ca99: needs rbc, blood type O+, waiting 1.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient bd8a [URGENT urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient bd8a [URGENT urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient bd8a [URGENT urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient ca99 [URGENT urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient ca99 [URGENT urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient ca99 [URGENT urgency, blood type O+]\n  8. Give 2u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 2 (Hour 2.0) ===\n  EPISODE PROGRESS: 2 saved, 0 lost | 3 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 604.9h\n  RBC (O+): 3 units, expires in 772.8h\n  RBC (O+): 2 units, expires in 829.4h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 485038: needs rbc, blood type O+, waiting 2.0h\n  [!!! URGENT] Patient 41ca99: needs rbc, blood type O+, waiting 2.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient ca99 [URGENT urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient ca99 [URGENT urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient ca99 [URGENT urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 3 (Hour 3.0) ===\n  EPISODE PROGRESS: 3 saved, 0 lost | 4 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 771.8h\n  RBC (O+): 2 units, expires in 828.4h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 485038: needs rbc, blood type O+, waiting 3.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient 5038 [STABLE urgency, blood type O+]\n\nEnter action number: "
+    ],
+    "actions": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "rewards": [
+      2.5,
+      2.5,
+      2.8362483402048353,
+      1.0
+    ],
+    "reward_components": [
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 2.8362483402048353,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.8362483402048353
+      },
+      {
+        "patient": 1.0,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.0
+      }
+    ],
+    "total_reward": 8.836248340204836
+  },
+  {
+    "episode": 4,
+    "prompts": [
+      "=== VitalChain Step 0 (Hour 0.0) ===\n  EPISODE PROGRESS: 0 saved, 0 lost | 0 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 2 units, expires in 372.0h\n  RBC (O+): 1 units, expires in 540.9h\n  RBC (O+): 3 units, expires in 323.6h\n  RBC (O+): 2 units, expires in 853.0h\n\nPATIENT QUEUE:\n  [!!! URGENT] Patient 4bd2e1: needs rbc, blood type O+, waiting 0.0h\n  [!!!! CRITICAL] Patient 0feafb: needs rbc, blood type O+, waiting 0.0h \u23f0 Escalating soon\n  [!!! URGENT] Patient b8b8f5: needs rbc, blood type O+, waiting 0.0h\n  [!!!! CRITICAL] Patient f92058: needs rbc, blood type O+, waiting 0.0h \u23f0 Escalating soon\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient eafb [CRITICAL urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient eafb [CRITICAL urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient eafb [CRITICAL urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient eafb [CRITICAL urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient 2058 [CRITICAL urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient 2058 [CRITICAL urgency, blood type O+]\n  8. Give 2u rbc (O+) to Patient 2058 [CRITICAL urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient 2058 [CRITICAL urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient d2e1 [URGENT urgency, blood type O+]\n  11. Give 1u rbc (O+) to Patient d2e1 [URGENT urgency, blood type O+]\n  12. Give 2u rbc (O+) to Patient d2e1 [URGENT urgency, blood type O+]\n  13. Give 2u rbc (O+) to Patient d2e1 [URGENT urgency, blood type O+]\n  14. Give 2u rbc (O+) to Patient b8f5 [URGENT urgency, blood type O+]\n  15. Give 1u rbc (O+) to Patient b8f5 [URGENT urgency, blood type O+]\n  16. Give 2u rbc (O+) to Patient b8f5 [URGENT urgency, blood type O+]\n  17. Give 2u rbc (O+) to Patient b8f5 [URGENT urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 1 (Hour 1.0) ===\n  EPISODE PROGRESS: 1 saved, 0 lost | 2 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 539.9h\n  RBC (O+): 3 units, expires in 322.6h\n  RBC (O+): 2 units, expires in 852.0h\n\nPATIENT QUEUE:\n  [!!! URGENT] Patient 4bd2e1: needs rbc, blood type O+, waiting 1.0h\n  [!!! URGENT] Patient b8b8f5: needs rbc, blood type O+, waiting 1.0h\n  [!!!! CRITICAL] Patient f92058: needs rbc, blood type O+, waiting 1.0h \u23f0 Escalating soon\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 2058 [CRITICAL urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient 2058 [CRITICAL urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient 2058 [CRITICAL urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient d2e1 [URGENT urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient d2e1 [URGENT urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient d2e1 [URGENT urgency, blood type O+]\n  8. Give 1u rbc (O+) to Patient b8f5 [URGENT urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient b8f5 [URGENT urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient b8f5 [URGENT urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 2 (Hour 2.0) ===\n  EPISODE PROGRESS: 2 saved, 0 lost | 3 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 321.6h\n  RBC (O+): 2 units, expires in 851.0h\n\nPATIENT QUEUE:\n  [!!! URGENT] Patient 4bd2e1: needs rbc, blood type O+, waiting 2.0h\n  [!!! URGENT] Patient b8b8f5: needs rbc, blood type O+, waiting 2.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient d2e1 [URGENT urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient d2e1 [URGENT urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient b8f5 [URGENT urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient b8f5 [URGENT urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 3 (Hour 3.0) ===\n  EPISODE PROGRESS: 3 saved, 0 lost | 5 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 320.6h\n  RBC (O+): 2 units, expires in 850.0h\n\nPATIENT QUEUE:\n  [!!! URGENT] Patient b8b8f5: needs rbc, blood type O+, waiting 3.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient b8f5 [URGENT urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient b8f5 [URGENT urgency, blood type O+]\n\nEnter action number: "
+    ],
+    "actions": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "rewards": [
+      3.5,
+      3.5,
+      2.5,
+      2.5
+    ],
+    "reward_components": [
+      {
+        "patient": 3.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 3.5
+      },
+      {
+        "patient": 3.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 3.5
+      },
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      }
+    ],
+    "total_reward": 12.0
+  },
+  {
+    "episode": 5,
+    "prompts": [
+      "=== VitalChain Step 0 (Hour 0.0) ===\n  EPISODE PROGRESS: 0 saved, 0 lost | 0 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 760.9h\n  RBC (O+): 1 units, expires in 517.7h\n  RBC (O+): 2 units, expires in 475.3h\n  RBC (O+): 1 units, expires in 512.3h\n\nPATIENT QUEUE:\n  [!!!! CRITICAL] Patient 175418: needs rbc, blood type O+, waiting 0.0h \u23f0 Escalating soon\n  [!!! URGENT] Patient 20fcc1: needs rbc, blood type O+, waiting 0.0h\n  [!!! URGENT] Patient 32121d: needs rbc, blood type O+, waiting 0.0h\n  [!! MODERATE] Patient d10dfc: needs rbc, blood type O+, waiting 0.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 5418 [CRITICAL urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 5418 [CRITICAL urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient 5418 [CRITICAL urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 5418 [CRITICAL urgency, blood type O+]\n  6. Give 1u rbc (O+) to Patient fcc1 [URGENT urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient fcc1 [URGENT urgency, blood type O+]\n  8. Give 2u rbc (O+) to Patient fcc1 [URGENT urgency, blood type O+]\n  9. Give 1u rbc (O+) to Patient fcc1 [URGENT urgency, blood type O+]\n  10. Give 1u rbc (O+) to Patient 121d [URGENT urgency, blood type O+]\n  11. Give 1u rbc (O+) to Patient 121d [URGENT urgency, blood type O+]\n  12. Give 2u rbc (O+) to Patient 121d [URGENT urgency, blood type O+]\n  13. Give 1u rbc (O+) to Patient 121d [URGENT urgency, blood type O+]\n  14. Give 1u rbc (O+) to Patient 0dfc [MODERATE urgency, blood type O+]\n  15. Give 1u rbc (O+) to Patient 0dfc [MODERATE urgency, blood type O+]\n  16. Give 2u rbc (O+) to Patient 0dfc [MODERATE urgency, blood type O+]\n  17. Give 1u rbc (O+) to Patient 0dfc [MODERATE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 1 (Hour 1.0) ===\n  EPISODE PROGRESS: 1 saved, 0 lost | 1 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 516.7h\n  RBC (O+): 2 units, expires in 474.3h\n  RBC (O+): 1 units, expires in 511.3h\n\nPATIENT QUEUE:\n  [!!! URGENT] Patient 20fcc1: needs rbc, blood type O+, waiting 1.0h\n  [!!! URGENT] Patient 32121d: needs rbc, blood type O+, waiting 1.0h\n  [!! MODERATE] Patient d10dfc: needs rbc, blood type O+, waiting 1.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient fcc1 [URGENT urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient fcc1 [URGENT urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient fcc1 [URGENT urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 121d [URGENT urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient 121d [URGENT urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient 121d [URGENT urgency, blood type O+]\n  8. Give 1u rbc (O+) to Patient 0dfc [MODERATE urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient 0dfc [MODERATE urgency, blood type O+]\n  10. Give 1u rbc (O+) to Patient 0dfc [MODERATE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 2 (Hour 2.0) ===\n  EPISODE PROGRESS: 2 saved, 0 lost | 2 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 2 units, expires in 473.3h\n  RBC (O+): 1 units, expires in 510.3h\n\nPATIENT QUEUE:\n  [!!! URGENT] Patient 32121d: needs rbc, blood type O+, waiting 2.0h\n  [!! MODERATE] Patient d10dfc: needs rbc, blood type O+, waiting 2.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 121d [URGENT urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 121d [URGENT urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient 0dfc [MODERATE urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 0dfc [MODERATE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 3 (Hour 3.0) ===\n  EPISODE PROGRESS: 3 saved, 0 lost | 4 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 509.3h\n\nPATIENT QUEUE:\n  [!! MODERATE] Patient d10dfc: needs rbc, blood type O+, waiting 3.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 0dfc [MODERATE urgency, blood type O+]\n\nEnter action number: "
+    ],
+    "actions": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "rewards": [
+      3.5,
+      2.5,
+      2.5,
+      1.5
+    ],
+    "reward_components": [
+      {
+        "patient": 3.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 3.5
+      },
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 1.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.5
+      }
+    ],
+    "total_reward": 10.0
+  },
+  {
+    "episode": 6,
+    "prompts": [
+      "=== VitalChain Step 0 (Hour 0.0) ===\n  EPISODE PROGRESS: 0 saved, 0 lost | 0 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 2 units, expires in 904.6h\n  RBC (O+): 3 units, expires in 529.1h\n  RBC (O+): 1 units, expires in 842.9h\n  RBC (O+): 2 units, expires in 432.8h\n\nPATIENT QUEUE:\n  [!! MODERATE] Patient 8b71f5: needs rbc, blood type O+, waiting 0.0h\n  [! STABLE] Patient 03c362: needs rbc, blood type O+, waiting 0.0h\n  [!!! URGENT] Patient 4f9a33: needs rbc, blood type O+, waiting 0.0h\n  [! STABLE] Patient 98742e: needs rbc, blood type O+, waiting 0.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 9a33 [URGENT urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient 9a33 [URGENT urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient 9a33 [URGENT urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient 9a33 [URGENT urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient 71f5 [MODERATE urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient 71f5 [MODERATE urgency, blood type O+]\n  8. Give 1u rbc (O+) to Patient 71f5 [MODERATE urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient 71f5 [MODERATE urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient c362 [STABLE urgency, blood type O+]\n  11. Give 2u rbc (O+) to Patient c362 [STABLE urgency, blood type O+]\n  12. Give 1u rbc (O+) to Patient c362 [STABLE urgency, blood type O+]\n  13. Give 2u rbc (O+) to Patient c362 [STABLE urgency, blood type O+]\n  14. Give 2u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n  15. Give 2u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n  16. Give 1u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n  17. Give 2u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 1 (Hour 1.0) ===\n  EPISODE PROGRESS: 1 saved, 0 lost | 2 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 528.1h\n  RBC (O+): 1 units, expires in 841.9h\n  RBC (O+): 2 units, expires in 431.8h\n\nPATIENT QUEUE:\n  [!! MODERATE] Patient 8b71f5: needs rbc, blood type O+, waiting 1.0h\n  [! STABLE] Patient 03c362: needs rbc, blood type O+, waiting 1.0h\n  [! STABLE] Patient 98742e: needs rbc, blood type O+, waiting 1.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 71f5 [MODERATE urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 71f5 [MODERATE urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient 71f5 [MODERATE urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient c362 [STABLE urgency, blood type O+]\n  6. Give 1u rbc (O+) to Patient c362 [STABLE urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient c362 [STABLE urgency, blood type O+]\n  8. Give 2u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n  9. Give 1u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 2 (Hour 2.0) ===\n  EPISODE PROGRESS: 2 saved, 0 lost | 4 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 527.1h\n  RBC (O+): 1 units, expires in 840.9h\n  RBC (O+): 2 units, expires in 430.8h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 03c362: needs rbc, blood type O+, waiting 2.0h\n  [! STABLE] Patient 98742e: needs rbc, blood type O+, waiting 2.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient c362 [STABLE urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient c362 [STABLE urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient c362 [STABLE urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n  6. Give 1u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 3 (Hour 3.0) ===\n  EPISODE PROGRESS: 3 saved, 0 lost | 5 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 839.9h\n  RBC (O+): 2 units, expires in 429.8h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 98742e: needs rbc, blood type O+, waiting 3.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient 742e [STABLE urgency, blood type O+]\n\nEnter action number: "
+    ],
+    "actions": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "rewards": [
+      2.5,
+      1.5,
+      1.0,
+      1.0
+    ],
+    "reward_components": [
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 1.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.5
+      },
+      {
+        "patient": 1.0,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.0
+      },
+      {
+        "patient": 1.0,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.0
+      }
+    ],
+    "total_reward": 6.0
+  },
+  {
+    "episode": 7,
+    "prompts": [
+      "=== VitalChain Step 0 (Hour 0.0) ===\n  EPISODE PROGRESS: 0 saved, 0 lost | 0 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 562.4h\n  RBC (O+): 3 units, expires in 498.0h\n  RBC (O+): 1 units, expires in 658.5h\n  RBC (O+): 1 units, expires in 472.1h\n\nPATIENT QUEUE:\n  [!!!! CRITICAL] Patient eb1d99: needs rbc, blood type O+, waiting 0.0h \u23f0 Escalating soon\n  [!! MODERATE] Patient 896b40: needs rbc, blood type O+, waiting 0.0h\n  [!!! URGENT] Patient 134770: needs rbc, blood type O+, waiting 0.0h\n  [!! MODERATE] Patient 7d872a: needs rbc, blood type O+, waiting 0.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 1d99 [CRITICAL urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient 1d99 [CRITICAL urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient 1d99 [CRITICAL urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 1d99 [CRITICAL urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient 4770 [URGENT urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient 4770 [URGENT urgency, blood type O+]\n  8. Give 1u rbc (O+) to Patient 4770 [URGENT urgency, blood type O+]\n  9. Give 1u rbc (O+) to Patient 4770 [URGENT urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient 6b40 [MODERATE urgency, blood type O+]\n  11. Give 2u rbc (O+) to Patient 6b40 [MODERATE urgency, blood type O+]\n  12. Give 1u rbc (O+) to Patient 6b40 [MODERATE urgency, blood type O+]\n  13. Give 1u rbc (O+) to Patient 6b40 [MODERATE urgency, blood type O+]\n  14. Give 2u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n  15. Give 2u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n  16. Give 1u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n  17. Give 1u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 1 (Hour 1.0) ===\n  EPISODE PROGRESS: 1 saved, 0 lost | 2 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 561.4h\n  RBC (O+): 3 units, expires in 497.0h\n  RBC (O+): 1 units, expires in 657.5h\n  RBC (O+): 1 units, expires in 471.1h\n\nPATIENT QUEUE:\n  [!! MODERATE] Patient 896b40: needs rbc, blood type O+, waiting 1.0h\n  [!!! URGENT] Patient 134770: needs rbc, blood type O+, waiting 1.0h\n  [!! MODERATE] Patient 7d872a: needs rbc, blood type O+, waiting 1.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 4770 [URGENT urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient 4770 [URGENT urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient 4770 [URGENT urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 4770 [URGENT urgency, blood type O+]\n  6. Give 1u rbc (O+) to Patient 6b40 [MODERATE urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient 6b40 [MODERATE urgency, blood type O+]\n  8. Give 1u rbc (O+) to Patient 6b40 [MODERATE urgency, blood type O+]\n  9. Give 1u rbc (O+) to Patient 6b40 [MODERATE urgency, blood type O+]\n  10. Give 1u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n  11. Give 2u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n  12. Give 1u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n  13. Give 1u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 2 (Hour 2.0) ===\n  EPISODE PROGRESS: 2 saved, 0 lost | 3 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 496.0h\n  RBC (O+): 1 units, expires in 656.5h\n  RBC (O+): 1 units, expires in 470.1h\n\nPATIENT QUEUE:\n  [!! MODERATE] Patient 896b40: needs rbc, blood type O+, waiting 2.0h\n  [!! MODERATE] Patient 7d872a: needs rbc, blood type O+, waiting 2.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 6b40 [MODERATE urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 6b40 [MODERATE urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient 6b40 [MODERATE urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n  6. Give 1u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 3 (Hour 3.0) ===\n  EPISODE PROGRESS: 3 saved, 0 lost | 5 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 495.0h\n  RBC (O+): 1 units, expires in 655.5h\n  RBC (O+): 1 units, expires in 469.1h\n\nPATIENT QUEUE:\n  [!! MODERATE] Patient 7d872a: needs rbc, blood type O+, waiting 3.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient 872a [MODERATE urgency, blood type O+]\n\nEnter action number: "
+    ],
+    "actions": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "rewards": [
+      3.5,
+      2.5,
+      1.5,
+      1.5
+    ],
+    "reward_components": [
+      {
+        "patient": 3.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 3.5
+      },
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 1.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.5
+      },
+      {
+        "patient": 1.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.5
+      }
+    ],
+    "total_reward": 9.0
+  },
+  {
+    "episode": 8,
+    "prompts": [
+      "=== VitalChain Step 0 (Hour 0.0) ===\n  EPISODE PROGRESS: 0 saved, 0 lost | 0 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 376.3h\n  RBC (O+): 1 units, expires in 385.0h\n  RBC (O+): 2 units, expires in 535.3h\n  RBC (O+): 3 units, expires in 885.9h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 3c2746: needs rbc, blood type O+, waiting 0.0h\n  [!!!! CRITICAL] Patient fc4574: needs rbc, blood type O+, waiting 0.0h \u23f0 Escalating soon\n  [!! MODERATE] Patient 3ad6d5: needs rbc, blood type O+, waiting 0.0h\n  [!!!! CRITICAL] Patient e553c0: needs rbc, blood type O+, waiting 0.0h \u23f0 Escalating soon\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 4574 [CRITICAL urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 4574 [CRITICAL urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient 4574 [CRITICAL urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient 4574 [CRITICAL urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient 53c0 [CRITICAL urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient 53c0 [CRITICAL urgency, blood type O+]\n  8. Give 2u rbc (O+) to Patient 53c0 [CRITICAL urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient 53c0 [CRITICAL urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient d6d5 [MODERATE urgency, blood type O+]\n  11. Give 1u rbc (O+) to Patient d6d5 [MODERATE urgency, blood type O+]\n  12. Give 2u rbc (O+) to Patient d6d5 [MODERATE urgency, blood type O+]\n  13. Give 2u rbc (O+) to Patient d6d5 [MODERATE urgency, blood type O+]\n  14. Give 2u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n  15. Give 1u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n  16. Give 2u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n  17. Give 2u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 1 (Hour 1.0) ===\n  EPISODE PROGRESS: 1 saved, 0 lost | 2 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 375.3h\n  RBC (O+): 1 units, expires in 384.0h\n  RBC (O+): 2 units, expires in 534.3h\n  RBC (O+): 3 units, expires in 884.9h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 3c2746: needs rbc, blood type O+, waiting 1.0h\n  [!! MODERATE] Patient 3ad6d5: needs rbc, blood type O+, waiting 1.0h\n  [!!!! CRITICAL] Patient e553c0: needs rbc, blood type O+, waiting 1.0h \u23f0 Escalating soon\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 53c0 [CRITICAL urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 53c0 [CRITICAL urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient 53c0 [CRITICAL urgency, blood type O+]\n  5. Give 2u rbc (O+) to Patient 53c0 [CRITICAL urgency, blood type O+]\n  6. Give 1u rbc (O+) to Patient d6d5 [MODERATE urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient d6d5 [MODERATE urgency, blood type O+]\n  8. Give 2u rbc (O+) to Patient d6d5 [MODERATE urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient d6d5 [MODERATE urgency, blood type O+]\n  10. Give 1u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n  11. Give 1u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n  12. Give 2u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n  13. Give 2u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 2 (Hour 2.0) ===\n  EPISODE PROGRESS: 2 saved, 0 lost | 3 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 383.0h\n  RBC (O+): 2 units, expires in 533.3h\n  RBC (O+): 3 units, expires in 883.9h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 3c2746: needs rbc, blood type O+, waiting 2.0h\n  [!! MODERATE] Patient 3ad6d5: needs rbc, blood type O+, waiting 2.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient d6d5 [MODERATE urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient d6d5 [MODERATE urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient d6d5 [MODERATE urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n  7. Give 2u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 3 (Hour 3.0) ===\n  EPISODE PROGRESS: 3 saved, 0 lost | 4 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 2 units, expires in 532.3h\n  RBC (O+): 3 units, expires in 882.9h\n\nPATIENT QUEUE:\n  [! STABLE] Patient 3c2746: needs rbc, blood type O+, waiting 3.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient 2746 [STABLE urgency, blood type O+]\n\nEnter action number: "
+    ],
+    "actions": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "rewards": [
+      3.5,
+      3.5,
+      1.5,
+      1.0
+    ],
+    "reward_components": [
+      {
+        "patient": 3.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 3.5
+      },
+      {
+        "patient": 3.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 3.5
+      },
+      {
+        "patient": 1.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.5
+      },
+      {
+        "patient": 1.0,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.0
+      }
+    ],
+    "total_reward": 9.5
+  },
+  {
+    "episode": 9,
+    "prompts": [
+      "=== VitalChain Step 0 (Hour 0.0) ===\n  EPISODE PROGRESS: 0 saved, 0 lost | 0 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 2 units, expires in 829.1h\n  RBC (O+): 1 units, expires in 480.1h\n  RBC (O+): 3 units, expires in 337.3h\n  RBC (O+): 1 units, expires in 431.2h\n\nPATIENT QUEUE:\n  [!!! URGENT] Patient 5b3548: needs rbc, blood type O+, waiting 0.0h\n  [!! MODERATE] Patient 2b55d8: needs rbc, blood type O+, waiting 0.0h\n  [! STABLE] Patient a375a7: needs rbc, blood type O+, waiting 0.0h\n  [!! MODERATE] Patient 13918d: needs rbc, blood type O+, waiting 0.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 3548 [URGENT urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 3548 [URGENT urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient 3548 [URGENT urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 3548 [URGENT urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient 55d8 [MODERATE urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient 55d8 [MODERATE urgency, blood type O+]\n  8. Give 2u rbc (O+) to Patient 55d8 [MODERATE urgency, blood type O+]\n  9. Give 1u rbc (O+) to Patient 55d8 [MODERATE urgency, blood type O+]\n  10. Give 2u rbc (O+) to Patient 918d [MODERATE urgency, blood type O+]\n  11. Give 1u rbc (O+) to Patient 918d [MODERATE urgency, blood type O+]\n  12. Give 2u rbc (O+) to Patient 918d [MODERATE urgency, blood type O+]\n  13. Give 1u rbc (O+) to Patient 918d [MODERATE urgency, blood type O+]\n  14. Give 2u rbc (O+) to Patient 75a7 [STABLE urgency, blood type O+]\n  15. Give 1u rbc (O+) to Patient 75a7 [STABLE urgency, blood type O+]\n  16. Give 2u rbc (O+) to Patient 75a7 [STABLE urgency, blood type O+]\n  17. Give 1u rbc (O+) to Patient 75a7 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 1 (Hour 1.0) ===\n  EPISODE PROGRESS: 1 saved, 0 lost | 2 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 479.1h\n  RBC (O+): 3 units, expires in 336.3h\n  RBC (O+): 1 units, expires in 430.2h\n\nPATIENT QUEUE:\n  [!! MODERATE] Patient 2b55d8: needs rbc, blood type O+, waiting 1.0h\n  [! STABLE] Patient a375a7: needs rbc, blood type O+, waiting 1.0h\n  [!! MODERATE] Patient 13918d: needs rbc, blood type O+, waiting 1.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 55d8 [MODERATE urgency, blood type O+]\n  3. Give 2u rbc (O+) to Patient 55d8 [MODERATE urgency, blood type O+]\n  4. Give 1u rbc (O+) to Patient 55d8 [MODERATE urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 918d [MODERATE urgency, blood type O+]\n  6. Give 2u rbc (O+) to Patient 918d [MODERATE urgency, blood type O+]\n  7. Give 1u rbc (O+) to Patient 918d [MODERATE urgency, blood type O+]\n  8. Give 1u rbc (O+) to Patient 75a7 [STABLE urgency, blood type O+]\n  9. Give 2u rbc (O+) to Patient 75a7 [STABLE urgency, blood type O+]\n  10. Give 1u rbc (O+) to Patient 75a7 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 2 (Hour 2.0) ===\n  EPISODE PROGRESS: 2 saved, 0 lost | 3 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 3 units, expires in 335.3h\n  RBC (O+): 1 units, expires in 429.2h\n\nPATIENT QUEUE:\n  [! STABLE] Patient a375a7: needs rbc, blood type O+, waiting 2.0h\n  [!! MODERATE] Patient 13918d: needs rbc, blood type O+, waiting 2.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 2u rbc (O+) to Patient 918d [MODERATE urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 918d [MODERATE urgency, blood type O+]\n  4. Give 2u rbc (O+) to Patient 75a7 [STABLE urgency, blood type O+]\n  5. Give 1u rbc (O+) to Patient 75a7 [STABLE urgency, blood type O+]\n\nEnter action number: ",
+      "=== VitalChain Step 3 (Hour 3.0) ===\n  EPISODE PROGRESS: 3 saved, 0 lost | 5 resources used, 0 expired\n\nYOUR INVENTORY:\n  RBC (O+): 1 units, expires in 334.3h\n  RBC (O+): 1 units, expires in 428.2h\n\nPATIENT QUEUE:\n  [! STABLE] Patient a375a7: needs rbc, blood type O+, waiting 3.0h\n\nAVAILABLE ACTIONS:\n  1. Wait one hour. Do nothing.\n  2. Give 1u rbc (O+) to Patient 75a7 [STABLE urgency, blood type O+]\n  3. Give 1u rbc (O+) to Patient 75a7 [STABLE urgency, blood type O+]\n\nEnter action number: "
+    ],
+    "actions": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "rewards": [
+      2.5,
+      1.5,
+      1.5,
+      1.0
+    ],
+    "reward_components": [
+      {
+        "patient": 2.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 2.5
+      },
+      {
+        "patient": 1.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.5
+      },
+      {
+        "patient": 1.5,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.5
+      },
+      {
+        "patient": 1.0,
+        "waste": 0.0,
+        "compat": 0.0,
+        "equity": 0.0,
+        "inaction": 0.0,
+        "total": 1.0
+      }
+    ],
+    "total_reward": 6.5
+  }
+]
