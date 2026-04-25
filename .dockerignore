@@ -1,0 +1,15 @@
+.git
+__pycache__
+*.pyc
+*.pyo
+.venv
+venv
+.DS_Store
+*.egg-info
+dist
+build
+tests
+plots
+*.md
+.gitignore
+.dockerignore
