@@ -24,6 +24,7 @@ pinned: false
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![License](https://img.shields.io/badge/License-MIT-red?style=for-the-badge)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-51%20Passed-brightgreen?style=for-the-badge)]()
+[![HF Space](https://img.shields.io/badge/🤗%20Live%20Demo-VitalChain-yellow?style=for-the-badge)](https://huggingface.co/spaces/singhhrishabhh/VitalChain)
 
 <br>
 
