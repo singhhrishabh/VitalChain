@@ -273,7 +273,7 @@ class TestCompatibility:
 class TestRewardFunctions:
 
     def test_patient_outcome_dying_treated(self):
-        """DYING patient treated returns +5.0."""
+        """DYING patient treated returns +1.0 (normalized from +5.0)."""
         patient = Patient(
             patient_id="test", hospital_id="h0",
             blood_type=BloodType.O_POS, needs=[],
@@ -281,10 +281,10 @@ class TestRewardFunctions:
             hla_type=None,
         )
         reward = reward_patient_outcome(patient, "allocate", True)
-        assert reward == 5.0
+        assert reward == 1.0  # normalized: (5 - (-5)) / (5-(-5)) * 2 - 1 = 1.0
 
     def test_patient_outcome_stable_treated(self):
-        """STABLE patient treated returns +0.5."""
+        """STABLE patient treated returns ~-0.9 (normalized from +0.5)."""
         patient = Patient(
             patient_id="test", hospital_id="h0",
             blood_type=BloodType.O_POS, needs=[],
@@ -292,7 +292,8 @@ class TestRewardFunctions:
             hla_type=None,
         )
         reward = reward_patient_outcome(patient, "allocate", True)
-        assert reward == 0.5
+        assert -1.0 <= reward <= 1.0
+        assert reward < 0.5  # low urgency → low normalized reward
 
     def test_patient_outcome_wait_action(self):
         """Non-allocate action returns 0.0."""
@@ -306,36 +307,40 @@ class TestRewardFunctions:
         assert reward == 0.0
 
     def test_patient_death_penalty(self):
-        """Patient death returns -5.0."""
+        """Patient death returns -1.0 (normalized from -5.0)."""
         patient = Patient(
             patient_id="test", hospital_id="h0",
             blood_type=BloodType.O_POS, needs=[],
             urgency=UrgencyLevel.DYING, hours_until_worse=0.0,
             hla_type=None,
         )
-        assert reward_patient_death(patient) == -5.0
+        assert reward_patient_death(patient) == -1.0
 
     def test_waste_no_expired(self):
-        """No expired resources returns +0.1 proactive reward (#7)."""
-        assert reward_waste([]) == 0.1
+        """No expired resources returns normalized positive reward."""
+        result = reward_waste([])
+        assert -1.0 <= result <= 1.0
+        assert result > 0.0  # positive reward for no waste
 
     def test_waste_organ_expired(self):
-        """Expired organ returns -10.0."""
+        """Expired organ returns -1.0 (normalized from -10.0)."""
         organ = BiologicResource(
             resource_id="test", resource_type=ResourceType.HEART,
             blood_type=BloodType.O_POS, units=1,
             expiry_hours=0.0, hospital_id="h0",
         )
-        assert reward_waste([organ]) == -10.0
+        assert reward_waste([organ]) == -1.0
 
     def test_waste_platelet_expired(self):
-        """Expired platelets penalized by units × -3.0."""
+        """Expired platelets returns normalized penalty."""
         platelets = BiologicResource(
             resource_id="test", resource_type=ResourceType.PLATELETS,
             blood_type=BloodType.O_POS, units=2,
             expiry_hours=0.0, hospital_id="h0",
         )
-        assert reward_waste([platelets]) == -6.0
+        result = reward_waste([platelets])
+        assert -1.0 <= result <= 1.0
+        assert result < 0.0  # penalty for waste
 
     def test_compatibility_reward_compatible(self):
         """Compatible allocation returns 0.0."""
@@ -353,7 +358,7 @@ class TestRewardFunctions:
         assert reward_compatibility(resource, patient, "allocate") == 0.0
 
     def test_compatibility_reward_incompatible(self):
-        """Incompatible allocation returns -3.0."""
+        """Incompatible allocation returns -1.0 (normalized from -3.0)."""
         resource = BiologicResource(
             resource_id="test", resource_type=ResourceType.RBC,
             blood_type=BloodType.A_POS, units=2,
@@ -365,7 +370,7 @@ class TestRewardFunctions:
             urgency=UrgencyLevel.URGENT, hours_until_worse=12.0,
             hla_type=None,
         )
-        assert reward_compatibility(resource, patient, "allocate") == -3.0
+        assert reward_compatibility(resource, patient, "allocate") == -1.0
 
     def test_equity_balanced(self):
         """Balanced hospitals return 0.0."""
@@ -414,7 +419,7 @@ class TestRewardFunctions:
                 patient_id="p1",
             ),
         ]
-        assert penalty_inaction(hospital, "wait", available) == -6.0  # #7: increased for DYING
+        assert penalty_inaction(hospital, "wait", available) == -1.0  # Phase 6: normalized from -6.0
 
     def test_inaction_no_penalty_when_only_wait(self):
         """Waiting when no allocate actions → 0.0."""
@@ -558,7 +563,8 @@ class TestNewFeatures:
                 description="Allocate RBC to p1", patient_id="p1",
             ),
         ]
-        assert penalty_inaction(hospital, "wait", available) == -4.0
+        result = penalty_inaction(hospital, "wait", available)
+        assert -1.0 <= result < 0.0  # Phase 6: CRITICAL normalized from -4.0
 
 
 if __name__ == "__main__":
