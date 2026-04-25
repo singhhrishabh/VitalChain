@@ -98,15 +98,18 @@ async def step(request: Dict[str, Any] = Body(...)):
 async def get_state():
     """Return current environment state for debugging."""
     state = env.state
-    # Inject Golden Hour transport statistics
+    # Inject Golden Hour transport statistics — these become the demo dashboard numbers
     state["golden_hour_stats"] = getattr(env, "_golden_hour_stats", {
-        "average_transport_delay_minutes": 0.0,
-        "viability_wasted_percent": 0.0,
+        "average_transport_delay_minutes": 0.0,   # tracks across episode
+        "viability_wasted_percent": 0.0,           # % of organ viability lost in transit
         "green_corridors_activated": 0,
         "emergency_escorts_used": 0,
-        "cooperation_events": 0,
-        "hoarding_events": 0,
-        "delay_reduction_vs_baseline": 21.4,
+        "cooperation_events": 0,                   # times hospitals shared data
+        "hoarding_events": 0,                      # times hospitals refused to share
+        # The pitch number: "VitalChain cuts average delay by X%"
+        # Calculated as: (baseline_delay - trained_delay) / baseline_delay * 100
+        # Fill this in after training: typically 15-25% improvement
+        "delay_reduction_vs_baseline": None,       # set after training
     })
     return state
 
