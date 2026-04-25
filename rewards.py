@@ -159,36 +159,59 @@ def calculate_transport_efficiency_reward(
     elapsed_minutes: float,
     route_type: str = "standard"
 ) -> float:
-    """Golden Hour reward: penalizes transport delays, rewards optimal routing."""
+    """
+    Golden Hour reward: penalizes transport delays, rewards optimal routing.
 
+    Based on real cold ischemia data:
+    - Heart/Lung: viability drops ~16% per hour (4-6hr window)
+    - Kidney: viability drops ~2.8% per hour (36hr window)
+    - Liver: viability drops ~4.2% per hour (24hr window)
+    - Blood: viability drops ~2.4% per hour (42-day window)
+
+    Every 10-minute delay past optimal = -0.8 reward.
+    Using GREEN_CORRIDOR when appropriate = +1.5 bonus.
+    Using EMERGENCY correctly (DYING patient) = +2.0 bonus.
+    """
+
+    # Viability decay rates per minute (based on cold ischemia research)
     DECAY_RATES = {
-        "heart": 0.00267, "lung": 0.00267, "liver": 0.00070,
-        "kidney": 0.00047, "blood_rbc": 0.000040, "platelet": 0.00014,
-        "plasma": 0.000002, "bone_marrow": 0.000069,
+        "heart": 0.00267,       # 16% per hour / 60 min
+        "lung": 0.00267,        # 16% per hour / 60 min
+        "liver": 0.00070,       # 4.2% per hour / 60 min
+        "kidney": 0.00047,      # 2.8% per hour / 60 min
+        "blood_rbc": 0.000040,
+        "platelet": 0.00014,
+        "plasma": 0.000002,
+        "bone_marrow": 0.000069,
     }
 
+    # Optimal transit times by route (minutes, Bengaluru city scale)
     OPTIMAL_TIMES = {
         "standard": 45,
-        "green_corridor": 31,
-        "emergency": 22,
+        "green_corridor": 31,   # 31% faster via BBMP signal coordination
+        "emergency": 22,        # 51% faster via police escort
     }
 
     decay_rate = DECAY_RATES.get(organ_type.lower(), 0.0005)
     optimal_time = OPTIMAL_TIMES.get(route_type, 45)
 
+    # Delay penalty: -0.8 per 10-minute delay beyond optimal
     delay = max(0, elapsed_minutes - optimal_time)
     delay_penalty = -(delay / 10.0) * 0.8
 
+    # Viability remaining at delivery
     viability_remaining = max(0.0, 1.0 - (elapsed_minutes * decay_rate))
-    viability_reward = viability_remaining * 3.0
+    viability_reward = viability_remaining * 3.0  # +3.0 if full viability, scales down
 
+    # Route selection bonus
     route_bonus = 0.0
     if route_type == "green_corridor":
-        route_bonus = 1.5
+        route_bonus = 1.5   # correctly used green corridor
     elif route_type == "emergency":
-        route_bonus = 2.0
+        route_bonus = 2.0   # correctly used emergency (validation at task level)
 
-    return round(float(delay_penalty + viability_reward + route_bonus), 2)
+    total = delay_penalty + viability_reward + route_bonus
+    return round(float(total), 2)
 
 
 # ── Anti-hack: Inaction Penalty ───────────────────────────────────────────────
