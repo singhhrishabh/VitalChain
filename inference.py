@@ -530,18 +530,18 @@ def run_training():
 
     current_task = "blood_bank_manager"
     print(f"\n--- Starting Curriculum Phase 1: {current_task} ---")
-    train_dataset = generate_training_prompts(current_task, num_samples=20)
+    train_dataset = generate_training_prompts(current_task, num_samples=100)
 
     training_args = GRPOConfig(
-        output_dir="outputs/vitalchain-grpo-test",
+        output_dir="outputs/vitalchain-grpo",
         learning_rate=2e-5,
         per_device_train_batch_size=2,
         num_generations=2,
-        gradient_accumulation_steps=1,
+        gradient_accumulation_steps=2,
         max_prompt_length=1024,
         max_completion_length=16,
-        num_train_epochs=1,
-        save_steps=100,
+        num_train_epochs=2,
+        save_steps=25,
         logging_steps=1,
         report_to="none",
         no_cuda=True if device != "cuda" else False,
