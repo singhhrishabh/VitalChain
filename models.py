@@ -65,6 +65,33 @@ EXPIRY_HOURS: Dict[ResourceType, float] = {
 }
 
 
+# ── Maximum Cold Ischemic Time (hours) — organ viability window ──────────────
+# Source: UNOS/NOTTO transplant guidelines
+# Beyond these thresholds, organ is non-viable for transplant.
+
+MAX_ISCHEMIC_HOURS: Dict[ResourceType, float] = {
+    ResourceType.HEART:       5.0,    # 4–6 hours, use 5 as strict limit
+    ResourceType.LIVER:       12.0,   # 12–24 hours, use 12 for safety margin
+    ResourceType.KIDNEY:      24.0,   # 24–36 hours, use 24 for safety margin
+    ResourceType.BONE_MARROW: 24.0,   # Highly time-sensitive post-processing
+    ResourceType.RBC:         72.0,   # Blood has longer but still limited window
+    ResourceType.PLATELETS:   24.0,   # Platelets degrade rapidly
+    ResourceType.PLASMA:      720.0,  # Frozen plasma is stable much longer
+}
+
+
+class OrganStatus(Enum):
+    """Lifecycle state of a biological resource for audit trail tracking."""
+    HARVESTED    = "harvested"      # freshly procured from donor
+    IN_STORAGE   = "in_storage"     # held in hospital cold storage
+    IN_TRANSIT   = "in_transit"     # being transported between hospitals
+    DELIVERED    = "delivered"      # arrived at destination hospital
+    ALLOCATED    = "allocated"      # assigned to a specific patient
+    TRANSPLANTED = "transplanted"   # successfully used
+    EXPIRED      = "expired"        # viability window exceeded
+    DISCARDED    = "discarded"      # failed verification or contamination
+
+
 class BloodType(Enum):
     O_POS  = "O+"    # Universal donor for RBC (most common in India)
     O_NEG  = "O-"    # Universal donor for all blood types
@@ -100,14 +127,30 @@ class RouteType(Enum):
 
 @dataclass
 class BiologicResource:
-    resource_id:   str
-    resource_type: ResourceType
-    blood_type:    Optional[BloodType]   # None for organs and bone marrow
-    units:         int                   # quantity (1 unit = 1 bag or 1 organ)
-    expiry_hours:  float                 # hours remaining until expiry
-    hospital_id:   str                   # current location
-    in_transit:    bool = False          # True while being transported
-    donor_type:    str = "cadaveric"     # "cadaveric" or "living"
+    """A biological resource (blood product, organ, or tissue) in the system.
+
+    Golden Hour fields:
+        hla_type: HLA antigen string for organ/marrow cross-matching.
+        harvest_timestamp: Simulated hours since episode start when resource was procured.
+        max_ischemic_hours: Maximum safe cold ischemia time from MAX_ISCHEMIC_HOURS.
+        ischemic_hours_elapsed: Hours elapsed since harvest (updated each step).
+        organ_status: Lifecycle state for audit trail tracking.
+    """
+    resource_id:          str
+    resource_type:        ResourceType
+    blood_type:           Optional[BloodType]   # None for organs and bone marrow
+    units:                int                   # quantity (1 unit = 1 bag or 1 organ)
+    expiry_hours:         float                 # hours remaining until expiry
+    hospital_id:          str                   # current location
+    in_transit:           bool = False          # True while being transported
+    donor_type:           str = "cadaveric"     # "cadaveric" or "living"
+    # ── Golden Hour & cross-matching fields ──
+    hla_type:             Optional[str] = None  # HLA antigen string for organ/marrow
+    harvest_timestamp:    float = 0.0           # episode hour when resource was procured
+    max_ischemic_hours:   float = 0.0           # max safe ischemia time (from constant table)
+    ischemic_hours_elapsed: float = 0.0         # hours since harvest (decay clock)
+    organ_status:         str = "in_storage"    # lifecycle state for audit trail
+    notto_id:             Optional[str] = None  # NOTTO registry ID for organ provenance
 
 
 @dataclass
