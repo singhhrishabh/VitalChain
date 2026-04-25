@@ -537,7 +537,7 @@ def run_training():
         learning_rate=2e-5,
         per_device_train_batch_size=2,
         num_generations=2,
-        gradient_accumulation_steps=2,
+        gradient_accumulation_steps=1,
         max_prompt_length=1024,
         max_completion_length=16,
         num_train_epochs=2,
