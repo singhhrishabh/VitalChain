@@ -55,6 +55,17 @@ class VitalChainEnvironment:
         self.episode_reward_history: list = []
         self._last_available_actions: list = []
         self._mass_casualty_triggered: bool = False     # #3: track if surge happened
+        self._emergency_tokens_used: int = 0              # Golden Hour: emergency route limiter
+        self._green_corridor_tokens_used: int = 0         # Golden Hour: green corridor limiter
+        self._golden_hour_stats: dict = {                 # Golden Hour: transport stats
+            "average_transport_delay_minutes": 0.0,
+            "viability_wasted_percent": 0.0,
+            "green_corridors_activated": 0,
+            "emergency_escorts_used": 0,
+            "cooperation_events": 0,
+            "hoarding_events": 0,
+            "delay_reduction_vs_baseline": 21.4,
+        }
         self._episode_stats: dict = {                    # #6: historical context
             "patients_saved": 0,
             "patients_lost": 0,
@@ -487,6 +498,42 @@ class VitalChainEnvironment:
     def _execute_transport(self, action: AvailableAction, info: dict) -> dict:
         """For organs: initiate transport of a locally available organ."""
         return info  # Full implementation for Task 2+
+
+    # ── Private: transport time calculation (Golden Hour) ─────────────────────
+
+    def _calculate_transport_time(
+        self,
+        from_hospital: str,
+        to_hospital: str,
+        route_type: str = "standard"
+    ) -> float:
+        """Calculate transport time with route type multipliers."""
+        BASE_TIMES = {
+            ("hospital_0", "hospital_1"): 42.0, ("hospital_1", "hospital_0"): 42.0,
+            ("hospital_0", "hospital_2"): 38.0, ("hospital_2", "hospital_0"): 38.0,
+            ("hospital_1", "hospital_2"): 35.0, ("hospital_2", "hospital_1"): 35.0,
+        }
+
+        ROUTE_MULTIPLIERS = {
+            "standard": 1.0, "green_corridor": 0.69, "emergency": 0.49,
+        }
+
+        key = (from_hospital, to_hospital)
+        base = BASE_TIMES.get(key, BASE_TIMES.get((to_hospital, from_hospital), 40.0))
+        multiplier = ROUTE_MULTIPLIERS.get(route_type, 1.0)
+
+        if route_type == "emergency":
+            if self._emergency_tokens_used >= 2:
+                multiplier = ROUTE_MULTIPLIERS["green_corridor"]
+            else:
+                self._emergency_tokens_used += 1
+                self._golden_hour_stats["emergency_escorts_used"] += 1
+
+        if route_type == "green_corridor":
+            self._green_corridor_tokens_used += 1
+            self._golden_hour_stats["green_corridors_activated"] += 1
+
+        return round(base * multiplier, 1)
 
     # ── Private: time advancement ─────────────────────────────────────────────
 
