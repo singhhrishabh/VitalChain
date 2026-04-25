@@ -149,6 +149,48 @@ def reward_equity(hospitals: dict) -> float:
     return 0.0  # fair distribution — no penalty
 
 
+# ── R5: Transport Efficiency (Golden Hour) ────────────────────────────────────
+# Penalizes transport delays, rewards optimal routing decisions.
+# Critical for organ viability — every 10 min delay reduces viability ~1.4%.
+
+def calculate_transport_efficiency_reward(
+    transport_route,
+    organ_type: str,
+    elapsed_minutes: float,
+    route_type: str = "standard"
+) -> float:
+    """Golden Hour reward: penalizes transport delays, rewards optimal routing."""
+
+    DECAY_RATES = {
+        "heart": 0.00267, "lung": 0.00267, "liver": 0.00070,
+        "kidney": 0.00047, "blood_rbc": 0.000040, "platelet": 0.00014,
+        "plasma": 0.000002, "bone_marrow": 0.000069,
+    }
+
+    OPTIMAL_TIMES = {
+        "standard": 45,
+        "green_corridor": 31,
+        "emergency": 22,
+    }
+
+    decay_rate = DECAY_RATES.get(organ_type.lower(), 0.0005)
+    optimal_time = OPTIMAL_TIMES.get(route_type, 45)
+
+    delay = max(0, elapsed_minutes - optimal_time)
+    delay_penalty = -(delay / 10.0) * 0.8
+
+    viability_remaining = max(0.0, 1.0 - (elapsed_minutes * decay_rate))
+    viability_reward = viability_remaining * 3.0
+
+    route_bonus = 0.0
+    if route_type == "green_corridor":
+        route_bonus = 1.5
+    elif route_type == "emergency":
+        route_bonus = 2.0
+
+    return round(float(delay_penalty + viability_reward + route_bonus), 2)
+
+
 # ── Anti-hack: Inaction Penalty ───────────────────────────────────────────────
 # The most important anti-exploit function.
 # Without this, the agent learns that "wait" is always safe.
