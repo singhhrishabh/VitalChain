@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalChain — Intelligent Biological Resource Allocation</title>
+    <meta name="description" content="VitalChain-Env: An AI-powered reinforcement learning environment for optimizing biological resource allocation — blood, organs, bone marrow — across multi-hospital networks.">
+    <link rel="icon" type="image/png" href="/static/assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- ────────────── FLOATING PARTICLES ────────────── -->
+    <div class="particles" id="particles"></div>
+
+    <!-- ────────────── NAVIGATION ────────────── -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo" id="nav-logo">
+                <img src="/static/assets/logo.png" alt="VitalChain Logo" class="nav-logo-img">
+                <span class="nav-logo-text">
+                    <span class="logo-vital">Vital</span><span class="logo-chain">Chain</span>
+                </span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#biologics" class="nav-link">Biologics</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#live" class="nav-link">Live Demo</a>
+                <a href="#architecture" class="nav-link">Architecture</a>
+            </div>
+            <a href="#live" class="nav-cta">Try Environment</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ────────────── HERO SECTION ────────────── -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-heart">
+            <img src="/static/assets/heart-bg.png" alt="" class="hero-heart-img" aria-hidden="true">
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                OpenEnv-Compliant RL Environment
+            </div>
+            <h1 class="hero-title">
+                <span class="hero-title-line">Every Second Counts.</span>
+                <span class="hero-title-line accent">Every Life Matters.</span>
+            </h1>
+            <p class="hero-subtitle">
+                VitalChain trains AI agents to allocate <em>blood products</em>, <em>organs</em>, 
+                and <em>bone marrow</em> across hospital networks — optimising for patient urgency, 
+                ABO compatibility, and zero waste.
+            </p>
+            <div class="hero-actions">
+                <a href="#live" class="btn btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Launch Environment
+                </a>
+                <a href="#how-it-works" class="btn btn-ghost">
+                    Learn More
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" data-target="7">7</span>
+                    <span class="stat-label">Resource Types</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number" data-target="8">8</span>
+                    <span class="stat-label">Blood Types</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number" data-target="4">4</span>
+                    <span class="stat-label">Reward Signals</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number" data-target="3">3</span>
+                    <span class="stat-label">Difficulty Tiers</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- ────────────── ABOUT SECTION ────────────── -->
+    <section class="section section-about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">The Challenge</span>
+                <h2 class="section-title">Saving Lives Through <br><span class="accent">Intelligent Allocation</span></h2>
+                <p class="section-desc">
+                    Every day, biological resources expire unused in one hospital while patients 
+                    die waiting at another. VitalChain addresses this by training AI agents 
+                    on the hardest logistics problem in medicine.
+                </p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card" data-reveal>
+                    <div class="about-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <h3>Multi-Hospital Networks</h3>
+                    <p>Coordinate resource allocation across 1 to 5 hospitals with real transport delays and logistics constraints.</p>
+                </div>
+                <div class="about-card" data-reveal>
+                    <div class="about-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3>Real Expiry Clocks</h3>
+                    <p>Platelets expire in 5 days. Hearts in 5 hours. Every tick of the clock matters. No room for waste.</p>
+                </div>
+                <div class="about-card" data-reveal>
+                    <div class="about-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.12 0 4.07.74 5.6 1.97"/></svg>
+                    </div>
+                    <h3>ABO / HLA Matching</h3>
+                    <p>Enforce real-world blood type compatibility and HLA tissue matching for bone marrow transplants.</p>
+                </div>
+                <div class="about-card" data-reveal>
+                    <div class="about-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>Patient Equity</h3>
+                    <p>Prevent resource monopolisation. Ensure fair distribution across all hospitals in the network.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ────────────── BIOLOGICS SECTION ────────────── -->
+    <section class="section section-biologics" id="biologics">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">What We Manage</span>
+                <h2 class="section-title">Beyond Blood. <br><span class="accent">Every Transplantable Biologic.</span></h2>
+                <p class="section-desc">
+                    VitalChain isn't limited to blood. It manages the complete spectrum of 
+                    transplantable biological resources — each with unique constraints, 
+                    shelf lives, and compatibility rules.
+                </p>
+            </div>
+            <div class="biologics-grid">
+                <div class="biologic-card biologic-heart" data-reveal>
+                    <div class="biologic-card-img">
+                        <img src="/static/assets/heart.png" alt="Heart transplant" loading="lazy">
+                    </div>
+                    <div class="biologic-card-content">
+                        <h3>Heart</h3>
+                        <div class="biologic-meta">
+                            <span class="biologic-tag critical">4–6 hour window</span>
+                            <span class="biologic-tag">ABO match required</span>
+                        </div>
+                        <p>The most time-critical organ. Cold ischemia time of 4–6 hours demands rapid AI decision-making for optimal recipient matching.</p>
+                    </div>
+                </div>
+                <div class="biologic-card biologic-lungs" data-reveal>
+                    <div class="biologic-card-img">
+                        <img src="/static/assets/lungs.png" alt="Lung transplant" loading="lazy">
+                    </div>
+                    <div class="biologic-card-content">
+                        <h3>Kidneys</h3>
+                        <div class="biologic-meta">
+                            <span class="biologic-tag moderate">36 hour window</span>
+                            <span class="biologic-tag">ABO match required</span>
+                        </div>
+                        <p>The most commonly transplanted organ. VitalChain optimises for distance, compatibility, and patient urgency across the network.</p>
+                    </div>
+                </div>
+                <div class="biologic-card biologic-kidney" data-reveal>
+                    <div class="biologic-card-img">
+                        <img src="/static/assets/kidney.png" alt="Kidney transplant" loading="lazy">
+                    </div>
+                    <div class="biologic-card-content">
+                        <h3>Liver</h3>
+                        <div class="biologic-meta">
+                            <span class="biologic-tag moderate">24 hour window</span>
+                            <span class="biologic-tag">Partial transplant possible</span>
+                        </div>
+                        <p>Living-donor partial hepatectomy adds complexity. The AI must weigh split-liver options against full transplant availability.</p>
+                    </div>
+                </div>
+                <div class="biologic-card biologic-liver" data-reveal>
+                    <div class="biologic-card-img">
+                        <img src="/static/assets/liver.png" alt="Bone marrow transplant" loading="lazy">
+                    </div>
+                    <div class="biologic-card-content">
+                        <h3>Bone Marrow</h3>
+                        <div class="biologic-meta">
+                            <span class="biologic-tag">48 hour window</span>
+                            <span class="biologic-tag hla">HLA matching required</span>
+                        </div>
+                        <p>Requires precise 6-locus HLA matching. A perfect match can mean the difference between engraftment and rejection.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="biologics-extras">
+                <div class="extra-chip" data-reveal>
+                    <span class="chip-dot rbc"></span>
+                    Red Blood Cells <span class="chip-meta">42-day shelf life</span>
+                </div>
+                <div class="extra-chip" data-reveal>
+                    <span class="chip-dot platelets"></span>
+                    Platelets <span class="chip-meta">5-day shelf life</span>
+                </div>
+                <div class="extra-chip" data-reveal>
+                    <span class="chip-dot plasma"></span>
+                    Fresh Frozen Plasma <span class="chip-meta">12-month shelf life</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ────────────── HOW IT WORKS ────────────── -->
+    <section class="section section-how" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">The Pipeline</span>
+                <h2 class="section-title">How VitalChain <span class="accent">Learns</span></h2>
+                <p class="section-desc">
+                    A curriculum-based reinforcement learning pipeline that progressively 
+                    challenges the AI — from single-hospital blood banks to multi-site 
+                    mass casualty response.
+                </p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-item" data-reveal>
+                    <div class="timeline-marker">
+                        <span>1</span>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-badge easy">Stage 1 — Easy</span>
+                        <h3>Blood Bank Manager</h3>
+                        <p>Single hospital. RBC only. O+ blood type. No expiry pressure. Master the basics of allocation before complexity scales.</p>
+                        <div class="timeline-specs">
+                            <span>1 Hospital</span>
+                            <span>4 Patients</span>
+                            <span>50 Steps</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item" data-reveal>
+                    <div class="timeline-marker">
+                        <span>2</span>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-badge medium">Stage 2 — Medium</span>
+                        <h3>Regional Organ Coordinator</h3>
+                        <p>3 hospitals. Organs + blood products. ABO matching. Real transport routing with time-sensitive cargo.</p>
+                        <div class="timeline-specs">
+                            <span>3 Hospitals</span>
+                            <span>12 Patients</span>
+                            <span>100 Steps</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item" data-reveal>
+                    <div class="timeline-marker">
+                        <span>3</span>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-badge hard">Stage 3 — Hard</span>
+                        <h3>Crisis Response</h3>
+                        <p>5 hospitals. All 7 biologics. HLA matching. Mass casualty events. Equity constraints. The ultimate test.</p>
+                        <div class="timeline-specs">
+                            <span>5 Hospitals</span>
+                            <span>40 Patients</span>
+                            <span>200 Steps</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ────────────── LIVE DEMO ────────────── -->
+    <section class="section section-live" id="live">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Interactive</span>
+                <h2 class="section-title">Live <span class="accent">Environment</span></h2>
+                <p class="section-desc">
+                    Run the environment in real-time. Reset episodes, execute actions, 
+                    and observe how the AI's decisions affect patient outcomes.
+                </p>
+            </div>
+            <div class="demo-container">
+                <div class="demo-controls">
+                    <div class="demo-task-select">
+                        <label for="task-select">Task</label>
+                        <select id="task-select">
+                            <option value="blood_bank_manager">🩸 Blood Bank Manager (Easy)</option>
+                            <option value="regional_organ_coordinator">🏥 Regional Coordinator (Medium)</option>
+                            <option value="crisis_response">🚨 Crisis Response (Hard)</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-sm" id="btn-reset">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                        Reset Episode
+                    </button>
+                    <button class="btn btn-ghost btn-sm" id="btn-oracle" disabled>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        Oracle Step
+                    </button>
+                </div>
+                <div class="demo-grid">
+                    <div class="demo-panel panel-state">
+                        <div class="panel-header">
+                            <h3>Hospital State</h3>
+                            <span class="panel-badge" id="step-badge">Step 0</span>
+                        </div>
+                        <div class="panel-body" id="state-panel">
+                            <div class="empty-state">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                                <p>Click <strong>Reset Episode</strong> to start</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="demo-panel panel-actions">
+                        <div class="panel-header">
+                            <h3>Available Actions</h3>
+                            <span class="panel-badge" id="action-count">—</span>
+                        </div>
+                        <div class="panel-body" id="actions-panel">
+                            <div class="empty-state">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                                <p>Actions will appear after reset</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="demo-panel panel-rewards">
+                        <div class="panel-header">
+                            <h3>Reward Components</h3>
+                            <span class="panel-badge" id="total-reward">—</span>
+                        </div>
+                        <div class="panel-body" id="rewards-panel">
+                            <div class="empty-state">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                                <p>Rewards shown after each step</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-log" id="demo-log">
+                    <div class="log-header">
+                        <span>Event Log</span>
+                        <button class="log-clear" id="log-clear">Clear</button>
+                    </div>
+                    <div class="log-body" id="log-body"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ────────────── ARCHITECTURE SECTION ────────────── -->
+    <section class="section section-arch" id="architecture">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Technical</span>
+                <h2 class="section-title">Reward <span class="accent">Architecture</span></h2>
+                <p class="section-desc">
+                    Four independent reward functions — never summed into a single scalar. 
+                    Each drives a distinct learning objective via GRPO.
+                </p>
+            </div>
+            <div class="reward-grid">
+                <div class="reward-card" data-reveal>
+                    <div class="reward-icon r1">R₁</div>
+                    <h3>Patient Outcome</h3>
+                    <p>+0.5 to +5.0 for treating patients based on urgency. -5.0 for deaths. The primary learning signal.</p>
+                    <div class="reward-range">
+                        <span class="range-min">-5.0</span>
+                        <div class="range-bar"><div class="range-fill r1-fill"></div></div>
+                        <span class="range-max">+5.0</span>
+                    </div>
+                </div>
+                <div class="reward-card" data-reveal>
+                    <div class="reward-icon r2">R₂</div>
+                    <h3>Waste Penalty</h3>
+                    <p>-1.0 to -10.0 for every expired resource. Organs penalised most severely. Prevents hoarding.</p>
+                    <div class="reward-range">
+                        <span class="range-min">-10.0</span>
+                        <div class="range-bar"><div class="range-fill r2-fill"></div></div>
+                        <span class="range-max">0.0</span>
+                    </div>
+                </div>
+                <div class="reward-card" data-reveal>
+                    <div class="reward-icon r3">R₃</div>
+                    <h3>Compatibility</h3>
+                    <p>-3.0 for every incompatible allocation. Forces the agent to learn ABO and HLA rules.</p>
+                    <div class="reward-range">
+                        <span class="range-min">-3.0</span>
+                        <div class="range-bar"><div class="range-fill r3-fill"></div></div>
+                        <span class="range-max">0.0</span>
+                    </div>
+                </div>
+                <div class="reward-card" data-reveal>
+                    <div class="reward-icon r4">R₄</div>
+                    <h3>Equity</h3>
+                    <p>Penalises if any hospital holds &gt;60% of resources. Prevents monopolisation across the network.</p>
+                    <div class="reward-range">
+                        <span class="range-min">-4.0</span>
+                        <div class="range-bar"><div class="range-fill r4-fill"></div></div>
+                        <span class="range-max">0.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ────────────── FOOTER ────────────── -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <img src="/static/assets/logo.png" alt="VitalChain" class="footer-logo">
+                    <span class="footer-name"><span class="logo-vital">Vital</span><span class="logo-chain">Chain</span></span>
+                    <p class="footer-tagline">Intelligent Biological Resource Allocation</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Environment</h4>
+                        <a href="/docs">API Docs</a>
+                        <a href="/schema">Schema</a>
+                        <a href="/health">Health Check</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Endpoints</h4>
+                        <a href="#" onclick="return false;"><code>POST /reset</code></a>
+                        <a href="#" onclick="return false;"><code>POST /step</code></a>
+                        <a href="#" onclick="return false;"><code>GET /state</code></a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Stack</h4>
+                        <a href="https://github.com/OpenEnvs/OpenEnv" target="_blank">OpenEnv</a>
+                        <a href="https://huggingface.co/Qwen" target="_blank">Qwen 2.5-7B</a>
+                        <a href="https://huggingface.co/docs/trl" target="_blank">TRL / GRPO</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VitalChain-Env. Built for the OpenEnv Hackathon.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
