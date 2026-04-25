@@ -84,6 +84,13 @@ class UrgencyLevel(Enum):
     DYING    = 5    # Immediate. Agent penalised -4.0 per step of inaction
 
 
+class RouteType(Enum):
+    """Transport route type for organ/blood delivery."""
+    STANDARD       = "standard"           # base transit time, no token cost
+    GREEN_CORRIDOR = "green_corridor"     # -30% transit time, costs 1 priority token
+    EMERGENCY      = "emergency"          # -50% transit time, costs 2 tokens, DYING only
+
+
 # ── Core resource/entity classes ──────────────────────────────────────────────
 
 @dataclass
