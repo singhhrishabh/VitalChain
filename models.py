@@ -85,7 +85,12 @@ class UrgencyLevel(Enum):
 
 
 class RouteType(Enum):
-    """Transport route type for organ/blood delivery."""
+    """Transport route type for organ/blood delivery.
+
+    The Green Corridor is Bengaluru's emergency road-clearing protocol.
+    Higher tiers = faster delivery but consume limited priority tokens.
+    Agent learns to use EMERGENCY only when organ viability < 20%.
+    """
     STANDARD       = "standard"           # base transit time, no token cost
     GREEN_CORRIDOR = "green_corridor"     # -30% transit time, costs 1 priority token
     EMERGENCY      = "emergency"          # -50% transit time, costs 2 tokens, DYING only
