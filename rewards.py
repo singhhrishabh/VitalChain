@@ -5,10 +5,13 @@
 Reward functions for VitalChain-Env.
 
 CRITICAL RULES:
-- These are 4 SEPARATE functions. They are NEVER summed before GRPO.
+- These are SEPARATE functions. They are NEVER summed before GRPO.
 - Each function returns a single float.
 - Each function must be independently testable.
 - The GRPO trainer receives these as a list of reward functions.
+
+Phase 6: All rewards are normalized to [-1.0, +1.0] range to prevent
+gradient explosion during GRPO training with Qwen2.5.
 """
 
 from models import (
@@ -16,6 +19,24 @@ from models import (
     UrgencyLevel, AvailableAction,
 )
 from compatibility import is_resource_compatible
+
+
+# ── Reward normalization ──────────────────────────────────────────────────────
+# Prevents gradient explosion during GRPO training.
+# All raw rewards pass through this before being returned.
+
+def _normalize(value: float, raw_min: float, raw_max: float) -> float:
+    """
+    Normalize a reward value from [raw_min, raw_max] to [-1.0, +1.0].
+
+    Ensures stable gradients during GRPO training with Qwen2.5.
+    Values outside the expected range are hard-clipped.
+    """
+    if raw_max == raw_min:
+        return 0.0
+    # Scale to [-1, 1]
+    normalized = 2.0 * (value - raw_min) / (raw_max - raw_min) - 1.0
+    return max(-1.0, min(1.0, normalized))
 
 
 # ── R1: Patient Outcome ───────────────────────────────────────────────────────
@@ -28,25 +49,26 @@ def reward_patient_outcome(
     treatment_succeeded: bool,
 ) -> float:
     """
-    Returns reward based on patient outcome after an allocation action.
+    Returns normalized reward based on patient outcome after an allocation.
+
+    Raw range: -5.0 to +5.0 → Normalized: -1.0 to +1.0
 
     Rewards:
-    - DYING patient successfully treated:    +5.0
-    - CRITICAL patient treated:              +3.0
-    - URGENT patient treated:                +2.0
-    - MODERATE patient treated:              +1.0
-    - STABLE patient treated:                +0.5
+    - DYING patient successfully treated:    +1.0
+    - CRITICAL patient treated:              +0.6
+    - URGENT patient treated:                +0.4
+    - MODERATE patient treated:              +0.2
+    - STABLE patient treated:                +0.1
 
     Penalties:
-    - Patient dies (any urgency):            -5.0
-    - DYING patient untreated (this step):   -4.0  ← see penalty_inaction()
+    - Patient dies (any urgency):            -1.0
     """
     if action_type != "allocate":
         return 0.0
     if not treatment_succeeded:
         return 0.0
     if not patient.is_alive:
-        return -5.0
+        return _normalize(-5.0, -5.0, 5.0)
 
     urgency_rewards = {
         UrgencyLevel.DYING:    5.0,
@@ -55,12 +77,13 @@ def reward_patient_outcome(
         UrgencyLevel.MODERATE: 1.0,
         UrgencyLevel.STABLE:   0.5,
     }
-    return urgency_rewards.get(patient.urgency, 0.5)
+    raw = urgency_rewards.get(patient.urgency, 0.5)
+    return _normalize(raw, -5.0, 5.0)
 
 
 def reward_patient_death(patient: Patient) -> float:
     """Called when a patient's is_alive transitions to False."""
-    return -5.0
+    return _normalize(-5.0, -5.0, 5.0)  # → -1.0
 
 
 # ── R2: Waste Penalty ─────────────────────────────────────────────────────────
@@ -69,11 +92,12 @@ def reward_patient_death(patient: Patient) -> float:
 
 def reward_waste(expired_resources: list, step_had_no_waste: bool = False) -> float:
     """
-    Called after time advance. expired_resources = resources whose
-    expiry_hours reached 0 this step.
+    Called after time advance. Penalizes resource expiry.
+
+    Raw range: -10.0 to +0.1 → Normalized to [-1.0, +1.0]
     """
     if not expired_resources:
-        return 0.1
+        return _normalize(0.1, -10.0, 0.1)
 
     penalty = 0.0
     for r in expired_resources:
@@ -87,7 +111,10 @@ def reward_waste(expired_resources: list, step_had_no_waste: bool = False) -> fl
             penalty -= 8.0            # bone marrow is nearly irreplaceable
         else:
             penalty -= 1.0 * r.units  # RBC and plasma
-    return penalty
+
+    # Clip raw penalty to expected range before normalizing
+    penalty = max(-10.0, penalty)
+    return _normalize(penalty, -10.0, 0.1)
 
 
 # ── R3: Compatibility Compliance ──────────────────────────────────────────────
@@ -101,8 +128,10 @@ def reward_compatibility(
 ) -> float:
     """
     Called for every allocation action.
+
+    Raw range: -3.0 to 0.0 → Normalized to [-1.0, 0.0]
     Returns 0.0 if compatible or not an allocation.
-    Returns -3.0 if incompatible (medical error).
+    Returns -1.0 if incompatible (medical error).
     """
     if action_type != "allocate":
         return 0.0
@@ -114,17 +143,24 @@ def reward_compatibility(
     ):
         return 0.0   # compatible — no reward, no penalty (just correct)
     else:
-        return -3.0  # incompatible transfusion — medical error
+        return _normalize(-3.0, -3.0, 0.0)  # → -1.0
 
 
 # ── R4: Equity Signal ─────────────────────────────────────────────────────────
 # Are resources distributed fairly across hospitals?
 # This prevents monopolisation by one hospital agent.
+# Phase 6: Also penalizes urban-hub favoritism (Bangalore bias).
 
 def reward_equity(hospitals: dict) -> float:
     """
     Called once per step (after action execution).
+
     Penalises if any single hospital controls >60% of total system resources.
+    Phase 6: Also applies urban-density penalty — if Bangalore hospitals
+    (h0, h1, h2) collectively hold >70% of resources while edge nodes
+    (Mumbai, Delhi) are underserved, penalty scales proportionally.
+
+    Raw range: -4.0 to 0.0 → Normalized to [-1.0, 0.0]
     Active only in Tasks 2 and 3.
     """
     total_units = sum(
@@ -136,6 +172,9 @@ def reward_equity(hospitals: dict) -> float:
     if total_units == 0:
         return 0.0
 
+    raw_penalty = 0.0
+
+    # Standard monopoly check
     for hospital in hospitals.values():
         hospital_units = sum(
             r.units for r in hospital.inventory.values()
@@ -144,9 +183,28 @@ def reward_equity(hospitals: dict) -> float:
         share = hospital_units / total_units
         if share > 0.60:
             # Proportional penalty above the 60% threshold
-            return -1.0 * (share - 0.60) * 10.0
+            raw_penalty = min(raw_penalty, -1.0 * (share - 0.60) * 10.0)
 
-    return 0.0  # fair distribution — no penalty
+    # Phase 6: Urban-hub bias check (Bangalore = h0, h1, h2)
+    if len(hospitals) >= 5:
+        urban_ids = {"h0", "h1", "h2"}
+        urban_units = sum(
+            r.units
+            for h_id, h in hospitals.items()
+            if h_id in urban_ids
+            for r in h.inventory.values()
+            if not r.in_transit
+        )
+        urban_share = urban_units / total_units
+        if urban_share > 0.70:
+            # Penalize urban hoarding — edge nodes are underserved
+            hub_penalty = -1.0 * (urban_share - 0.70) * 8.0
+            raw_penalty = min(raw_penalty, hub_penalty)
+
+    raw_penalty = max(-4.0, raw_penalty)
+    if raw_penalty == 0.0:
+        return 0.0  # fair distribution — no penalty
+    return max(-1.0, raw_penalty / 4.0)  # scale [-4, 0] → [-1, 0]
 
 
 # ── R5: Transport Efficiency (Golden Hour) ────────────────────────────────────
@@ -168,9 +226,7 @@ def calculate_transport_efficiency_reward(
     - Liver: viability drops ~4.2% per hour (24hr window)
     - Blood: viability drops ~2.4% per hour (42-day window)
 
-    Every 10-minute delay past optimal = -0.8 reward.
-    Using GREEN_CORRIDOR when appropriate = +1.5 bonus.
-    Using EMERGENCY correctly (DYING patient) = +2.0 bonus.
+    Raw range: ~-5.0 to +5.0 → Normalized to [-1.0, +1.0]
     """
 
     # Viability decay rates per minute (based on cold ischemia research)
@@ -211,7 +267,46 @@ def calculate_transport_efficiency_reward(
         route_bonus = 2.0   # correctly used emergency (validation at task level)
 
     total = delay_penalty + viability_reward + route_bonus
-    return round(float(total), 2)
+    return _normalize(total, -5.0, 5.0)
+
+
+# ── R6: Anti-Hoarding Penalty ─────────────────────────────────────────────────
+# Phase 6: Severe penalty if hospital holds a resource until it expires
+# when another node had a compatible patient waiting.
+
+def penalty_anti_hoarding(
+    expired_resource: BiologicResource,
+    all_hospitals: dict,
+) -> float:
+    """
+    Triggered when a resource expires. Checks if ANY other hospital had
+    a compatible patient who could have used it. If yes → severe penalty.
+
+    This is the anti-hoarding mechanism: holding resources selfishly
+    while patients die elsewhere is the worst possible strategy.
+
+    Raw range: -1.0 to 0.0 → already in [-1, 0] range.
+    """
+    from compatibility import is_resource_compatible
+
+    for h_id, hospital in all_hospitals.items():
+        if h_id == expired_resource.hospital_id:
+            continue  # skip the hoarding hospital itself
+        for patient in hospital.patients:
+            if not patient.is_alive or patient.is_treated:
+                continue
+            # Check if this patient needed this resource type
+            if expired_resource.resource_type.value in patient.needs:
+                if expired_resource.blood_type is None:
+                    return -1.0  # organ wasted while patient needed it
+                if is_resource_compatible(
+                    expired_resource.blood_type,
+                    patient.blood_type,
+                    expired_resource.resource_type,
+                ):
+                    return -1.0  # compatible resource wasted
+
+    return 0.0  # no compatible patient elsewhere — expiry was unavoidable
 
 
 # ── Anti-hack: Inaction Penalty ───────────────────────────────────────────────
@@ -226,6 +321,8 @@ def penalty_inaction(
     """
     If the agent chose "wait" but a DYING or CRITICAL patient exists
     AND compatible resources are available for them → hard penalty.
+
+    Raw range: -6.0 to 0.0 → Normalized to [-1.0, 0.0]
 
     This is the function that kills the "always wait" exploit.
     """
@@ -242,7 +339,8 @@ def penalty_inaction(
             )
             if patient and patient.urgency in (UrgencyLevel.DYING,
                                                UrgencyLevel.CRITICAL):
-                return -6.0 if patient.urgency == UrgencyLevel.DYING else -4.0
+                raw = -6.0 if patient.urgency == UrgencyLevel.DYING else -4.0
+                return _normalize(raw, -6.0, 0.0)
 
     return 0.0  # waiting was genuinely the right call — no penalty
 
@@ -260,6 +358,9 @@ def compute_all_rewards(
     Returns dict of all components.
     Pass each component SEPARATELY to GRPOTrainer as reward_funcs list.
     NEVER sum these and pass a single scalar.
+
+    Phase 6: All individual components are already normalized to [-1, 1].
+    The total is the sum of normalized components (for logging only).
     """
     return {
         "patient": patient_reward,
