@@ -112,6 +112,13 @@ TASK_CONFIGS: dict[str, dict] = {
         "arrival_probability": 0.15,
         "query_cost_hours": 0.5,
         "multi_needs": True,
+        # Golden Hour & Cooperation mechanics
+        "cooperation_bonus": 1.5,
+        "hoarding_penalty": 0.5,
+        "data_shared_default": False,
+        "green_corridor_tokens": 3,
+        "emergency_tokens": 1,
+        "viability_pressure_multiplier": 1.3,
     },
 }
 
@@ -124,3 +131,12 @@ def get_config(task_id: str) -> dict:
             f"Valid: {list(TASK_CONFIGS.keys())}"
         )
     return TASK_CONFIGS[task_id]
+
+
+def calculate_cooperation_reward(hospital_id: str, shared_data: bool) -> float:
+    """Calculate reward/penalty for data sharing decisions between hospitals."""
+    if shared_data:
+        return 1.5   # cooperation bonus
+    else:
+        return -0.3  # hoarding baseline penalty
+
