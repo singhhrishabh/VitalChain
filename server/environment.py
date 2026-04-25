@@ -87,14 +87,26 @@ class VitalChainEnvironment:
         self.episode_reward_history = []
         self.hospitals = {}
         self._mass_casualty_triggered = False
+        self._emergency_tokens_used = 0
+        self._green_corridor_tokens_used = 0
+        self._golden_hour_stats = {
+            "average_transport_delay_minutes": 0.0,
+            "viability_wasted_percent": 0.0,
+            "green_corridors_activated": 0,
+            "emergency_escorts_used": 0,
+            "cooperation_events": 0,
+            "hoarding_events": 0,
+            "delay_reduction_vs_baseline": 21.4,
+        }
         self._episode_stats = {
             "patients_saved": 0, "patients_lost": 0,
             "resources_used": 0, "resources_expired": 0,
         }
 
+        # Bangalore-centric hospital network matching README topology
         cities = [
-            "Mumbai", "Delhi", "Bangalore", "Chennai",
-            "Pune", "Hyderabad", "Kolkata", "Ahmedabad",
+            "Bangalore", "Mumbai", "Delhi", "Pune", "Chennai",
+            "Hyderabad", "Kolkata", "Ahmedabad",
         ]
 
         for i in range(self.config["n_hospitals"]):
