@@ -2,53 +2,53 @@
 # Licensed under MIT License
 
 """
-FastAPI application for VitalChain-Env.
+VitalChain-Env FastAPI server entry point.
 
-OpenEnv-compliant server with HTTP endpoints:
-- POST /reset — Initialize new episode
-- POST /step — Execute action
-- GET  /state — Episode metadata
-- GET  /health — Health check
-- GET  /schema — Action/observation schema
-
-Uses create_fastapi_app() from openenv_core when available,
-otherwise builds equivalent endpoints manually for compatibility.
+Run with:
+  uv run server          (uses pyproject.toml [project.scripts])
+  python -m server.app   (direct module execution)
+  uvicorn server.app:app (uvicorn import string)
 """
 
 import os
 import sys
 from pathlib import Path
-from typing import Any, Dict
 
-from fastapi import FastAPI, Body
+# Ensure parent directory is importable for root-level modules
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
-# Ensure parent directory is importable
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from server.environment import VitalChainEnvironment
 from models import VitalChainAction, VitalChainObservation
 
-# ── Create environment instance ──────────────────────────────────────────────
+# ── Module-level app creation ────────────────────────────────────────────────
+# The `app` object MUST be at module level so uvicorn can import it via
+# the string "server.app:app". main() only launches uvicorn, never creates app.
+
 env = VitalChainEnvironment(
     num_hospitals=3,
     task_id="blood_bank_manager",
 )
 
-# ── Try OpenEnv native app creation, fall back to manual ─────────────────────
-_openenv_app = None
+# Try OpenEnv native app creation, fall back to manual FastAPI
+_app = None
 try:
     from openenv_core.env_server import create_fastapi_app
-    _openenv_app = create_fastapi_app(env, VitalChainAction, VitalChainObservation)
+    _app = create_fastapi_app(env, VitalChainAction, VitalChainObservation)
 except Exception:
-    _openenv_app = None
+    _app = None
 
-if _openenv_app is not None:
-    app = _openenv_app
+if _app is not None:
+    app = _app
 else:
     # Manual FastAPI app — functionally identical to OpenEnv's create_fastapi_app
+    from fastapi import FastAPI, Body
+    from typing import Any, Dict
+
     app = FastAPI(
         title="VitalChain-Env",
         description=(
@@ -59,72 +59,33 @@ else:
         version="1.0.0",
     )
 
-# CORS for HF Spaces and local development
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Serve static files for the web dashboard
-STATIC_DIR = Path(__file__).parent / "static"
-if STATIC_DIR.exists():
-    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
-
-
-# ── OpenEnv endpoints (only registered if not using create_fastapi_app) ──────
-if _openenv_app is None:
-
     @app.post("/reset")
-    async def reset(request: Dict[str, Any] = Body(default={})):
-        """
-        Reset the environment to initial state.
-
-        Body:
-            {"task_id": "blood_bank_manager"}  (optional)
-
-        Returns:
-            {"observation": {...}, "reward": 0.0, "done": false}
-        """
+    async def api_reset(request: Dict[str, Any] = Body(default={})):
+        """Reset the environment to initial state."""
         task_id = request.get("task_id", None)
         obs = env.reset(task_id=task_id)
         return {"observation": obs, "reward": 0.0, "done": False}
 
     @app.post("/step")
-    async def step(request: Dict[str, Any] = Body(...)):
-        """
-        Execute an action in the environment.
-
-        Body:
-            {"action": {"action_index": 2}}  or  {"action_index": 2}
-
-        Returns:
-            {observation, reward_components, total_reward, done, info}
-        """
-        result = env.step(request)
-        return result
+    async def api_step(request: Dict[str, Any] = Body(...)):
+        """Execute an action in the environment."""
+        return env.step(request)
 
     @app.get("/state")
-    async def get_state():
+    async def api_state():
         """Return current environment state for debugging."""
         state = env.state
         state["golden_hour_stats"] = getattr(env, "_golden_hour_stats", {})
         return state
 
     @app.get("/health")
-    async def health():
+    async def api_health():
         """Health check endpoint."""
-        return {
-            "status": "healthy",
-            "environment": "vitalchain-env",
-            "version": "1.0.0",
-        }
+        return {"status": "healthy", "environment": "vitalchain-env", "version": "1.0.0"}
 
     @app.get("/schema")
-    async def schema():
-        """Return environment action/observation schema for discoverability."""
+    async def api_schema():
+        """Return environment action/observation schema."""
         return {
             "environment": "vitalchain-env",
             "version": "1.0.0",
@@ -158,6 +119,20 @@ if _openenv_app is None:
             ],
         }
 
+# ── CORS (always applied, regardless of app creation path) ───────────────────
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ── Static files for web dashboard ───────────────────────────────────────────
+STATIC_DIR = Path(__file__).parent / "static"
+if STATIC_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+
 
 @app.get("/")
 async def root():
@@ -173,11 +148,29 @@ async def root():
     }
 
 
-def main():
-    """Entry point for the 'server' CLI script."""
-    import uvicorn
-    port = int(os.getenv("PORT", "7860"))  # HF Spaces default port
-    uvicorn.run("server.app:app", host="0.0.0.0", port=port, reload=False)
+# ── CLI entry point ──────────────────────────────────────────────────────────
+
+def main() -> None:
+    """
+    Entry point called by the `server` CLI command defined in pyproject.toml.
+    Also used by the Dockerfile CMD and HF Spaces.
+
+    Environment variables:
+        HOST    — bind address (default: 0.0.0.0)
+        PORT    — bind port (default: 7860 for HF Spaces)
+        WORKERS — uvicorn worker count (default: 1)
+    """
+    host = os.environ.get("HOST", "0.0.0.0")
+    port = int(os.environ.get("PORT", "7860"))
+    workers = int(os.environ.get("WORKERS", "1"))
+
+    uvicorn.run(
+        "server.app:app",          # import string — uvicorn reloads safely
+        host=host,
+        port=port,
+        workers=workers,
+        log_level="info",
+    )
 
 
 if __name__ == "__main__":
