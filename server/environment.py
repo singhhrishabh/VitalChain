@@ -64,7 +64,7 @@ class VitalChainEnvironment:
             "emergency_escorts_used": 0,
             "cooperation_events": 0,
             "hoarding_events": 0,
-            "delay_reduction_vs_baseline": 21.4,
+            "delay_reduction_vs_baseline": None,
         }
         self._episode_stats: dict = {                    # #6: historical context
             "patients_saved": 0,
@@ -96,7 +96,7 @@ class VitalChainEnvironment:
             "emergency_escorts_used": 0,
             "cooperation_events": 0,
             "hoarding_events": 0,
-            "delay_reduction_vs_baseline": 21.4,
+            "delay_reduction_vs_baseline": None,
         }
         self._episode_stats = {
             "patients_saved": 0, "patients_lost": 0,
@@ -104,9 +104,21 @@ class VitalChainEnvironment:
         }
 
         # Bangalore-centric hospital network matching README topology
+        # Core 3: Manipal (north), Fortis (east), Apollo (south)
+        # Extended 5+: adds KEM Mumbai, AIIMS Delhi
+        hospital_names = [
+            "Manipal Hospital",           # h0 — Bangalore (north)
+            "Fortis Hospital",            # h1 — Bangalore (east)
+            "Apollo Hospital",            # h2 — Bangalore (south)
+            "KEM Hospital",               # h3 — Mumbai
+            "AIIMS",                      # h4 — Delhi
+            "Narayana Health",            # h5 — Bangalore (extra)
+            "Ruby Hall Clinic",           # h6 — Pune (extra)
+            "CMC Vellore",                # h7 — Chennai (extra)
+        ]
         cities = [
-            "Bangalore", "Mumbai", "Delhi", "Pune", "Chennai",
-            "Hyderabad", "Kolkata", "Ahmedabad",
+            "Bangalore", "Bangalore", "Bangalore", "Mumbai", "Delhi",
+            "Bangalore", "Pune", "Chennai",
         ]
 
         for i in range(self.config["n_hospitals"]):
@@ -115,7 +127,7 @@ class VitalChainEnvironment:
             patients = self._generate_patients(h_id)
             self.hospitals[h_id] = Hospital(
                 hospital_id=h_id,
-                name=f"{cities[i]} General Hospital",
+                name=hospital_names[i],
                 city=cities[i],
                 inventory=inventory,
                 patients=patients,
@@ -519,7 +531,17 @@ class VitalChainEnvironment:
         to_hospital: str,
         route_type: str = "standard"
     ) -> float:
-        """Calculate transport time with route type multipliers."""
+        """
+        Calculate transport time in minutes with Green Corridor / Emergency multipliers.
+
+        Models Bengaluru's 3-hospital network:
+        - Manipal (north) ↔ Fortis (east): 42 min standard
+        - Manipal (north) ↔ Apollo (south): 38 min standard
+        - Fortis (east) ↔ Apollo (south): 35 min standard
+
+        Green Corridor: BBMP coordinates traffic signal override.
+        Emergency: Police escort + signal override (limited to 2 activations per episode).
+        """
         BASE_TIMES = {
             ("hospital_0", "hospital_1"): 42.0, ("hospital_1", "hospital_0"): 42.0,
             ("hospital_0", "hospital_2"): 38.0, ("hospital_2", "hospital_0"): 38.0,
