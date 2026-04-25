@@ -46,7 +46,16 @@ class VitalChainEnvironment:
     compatibility constraints, and patient urgency scores.
     """
 
-    def __init__(self):
+    def __init__(self, training_mode: bool = False):
+        """
+        Initialize VitalChain environment.
+
+        Args:
+            training_mode: When True, bypasses computationally heavy operations
+                          (audit ledger hashing, telemetry simulation) for faster
+                          GRPO training throughput. Use False for evaluation/demo.
+        """
+        self.training_mode = training_mode
         self.hospitals: dict = {}
         self.task_id: str = "blood_bank_manager"
         self.config: dict = {}
@@ -72,6 +81,34 @@ class VitalChainEnvironment:
             "resources_used": 0,
             "resources_expired": 0,
         }
+
+    # ── Training fast-mode stubs ──────────────────────────────────────────────
+
+    def _fast_audit_hash(self, resource_id: str, event: str) -> str:
+        """Return dummy hash during training to avoid SHA-256 overhead."""
+        if self.training_mode:
+            return f"FAST_{resource_id}_{event}"
+        import hashlib
+        return hashlib.sha256(f"{resource_id}:{event}".encode()).hexdigest()
+
+    def _fast_viability(self, resource) -> float:
+        """Fast viability calculation for training (linear instead of exp)."""
+        if self.training_mode:
+            # Simple linear decay — avoids math.exp() overhead per step
+            ischemic = getattr(resource, "ischemic_hours_elapsed", 0.0)
+            max_isch = getattr(resource, "max_ischemic_hours", 24.0) or 24.0
+            return max(0.0, 1.0 - (ischemic / max_isch))
+        from compatibility import calculate_viability_from_resource
+        return calculate_viability_from_resource(resource)
+
+    def _fast_traffic_delay(self, base_minutes: float) -> float:
+        """Fast traffic delay for training (no randomization)."""
+        if self.training_mode:
+            return base_minutes  # skip traffic simulation entirely
+        from simulation import TrafficSimulator
+        sim = TrafficSimulator()
+        adjusted, _ = sim.apply_disruption(base_minutes, self.episode_time_hours)
+        return adjusted
 
     # ── reset() ───────────────────────────────────────────────────────────────
 
