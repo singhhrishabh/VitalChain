@@ -52,6 +52,7 @@ An RL environment that trains LLM agents to allocate organs, blood, and bone mar
 <td align="center"><a href="https://singhhrishabhh-vitalchain.hf.space/docs"><b>📖 API</b></a></td>
 <td align="center"><a href="https://htmlpreview.github.io/?https://github.com/singhhrishabh/VitalChain/blob/main/assets/pitch_deck.html"><b>🎯 Slides</b></a></td>
 <td align="center"><a href="TECHNICAL_DETAILS.md"><b>🔬 Deep Dive</b></a></td>
+<td align="center"><a href="HOWTORUN.md"><b>🏃 How to Run</b></a></td>
 </tr>
 </table>
 
