@@ -1,6 +1,6 @@
 # The Last 45 Minutes: Teaching AI to Save Lives When Logistics Fail
 
-*By Hrishabh Singh — OpenEnv Hackathon 2026*
+*By Rishabh Singh — OpenEnv Hackathon 2026*
 
 ---
 
