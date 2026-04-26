@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate publication-quality training plots from 200-step GRPO run."""
+"""Generate publication-quality training plots from 400-step GRPO run."""
 import json
 import numpy as np
 import matplotlib
@@ -9,7 +9,7 @@ from matplotlib.ticker import MaxNLocator
 import os
 
 # ── Load training logs ──────────────────────────────────────────
-CKPT = "outputs/vitalchain-grpo/checkpoint-200/trainer_state.json"
+CKPT = "outputs/vitalchain-grpo/checkpoint-400/trainer_state.json"
 with open(CKPT) as f:
     state = json.load(f)
 logs = state["log_history"]
@@ -58,7 +58,7 @@ def smooth(arr, window=10):
     return np.concatenate([pad, out])
 
 # ════════════════════════════════════════════════════════════════
-# PLOT 1: Reward Curve (200 steps)
+# PLOT 1: Reward Curve (400 steps)
 # ════════════════════════════════════════════════════════════════
 fig, ax = plt.subplots(figsize=(12, 5), facecolor=C["bg"])
 ax.plot(steps, rewards, alpha=0.25, color=C["accent1"], linewidth=0.8, label="Raw reward")
@@ -74,7 +74,7 @@ ax.annotate(f"Peak: +{rewards[peak_idx]:.2f}\n(Step {steps[peak_idx]})",
             color=C["green"], fontsize=9, fontweight="bold",
             arrowprops=dict(arrowstyle="->", color=C["green"], lw=1.5))
 
-style_ax(ax, "GRPO Reward Curve — 200 Training Steps", "Training Step", "Episode Reward")
+style_ax(ax, "GRPO Reward Curve — 400 Training Steps", "Training Step (GRPO iteration)", "Episode Reward (sum of 7 rubrics)")
 ax.legend(loc="lower right", facecolor=C["card"], edgecolor=C["grid"],
           labelcolor=C["text"], fontsize=9)
 fig.tight_layout()
@@ -135,7 +135,7 @@ fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(16, 5), facecolor=C["bg"])
 
 # Panel 1: Box plots
 bp = ax1.boxplot([baseline_rewards, trained_rewards],
-                 labels=["Baseline\n(Steps 1-100)", "Trained\n(Steps 101-200)"],
+                 tick_labels=[f"Baseline\n(Steps 1-{half})", f"Trained\n(Steps {half+1}-{len(rewards)})"],
                  patch_artist=True, widths=0.5,
                  medianprops=dict(color=C["yellow"], linewidth=2))
 bp["boxes"][0].set_facecolor(C["red"])
@@ -169,6 +169,24 @@ fig.tight_layout()
 fig.savefig("plots/baseline_comparison.png", dpi=180, bbox_inches="tight", facecolor=C["bg"])
 plt.close()
 print("✅ plots/baseline_comparison.png")
+
+# ════════════════════════════════════════════════════════════════
+# PLOT 4: Overlay Comparison (Same Axes)
+# ════════════════════════════════════════════════════════════════
+fig, ax = plt.subplots(figsize=(10, 5), facecolor=C["bg"])
+x_range = range(half)
+
+ax.plot(x_range, smooth(rewards[:half], 10)[:half], color=C["red"], linewidth=2, label="Untrained Baseline (First Half)", alpha=0.8)
+ax.plot(x_range, smooth(rewards[half:], 10)[:half], color=C["green"], linewidth=2, label="Trained Agent (Second Half)", alpha=0.8)
+ax.axhline(y=0, color=C["yellow"], linestyle="--", alpha=0.5, linewidth=1)
+
+style_ax(ax, "Reward Curves: Untrained vs Trained Agent", "Relative Episode", "Reward (Smoothed)")
+ax.legend(loc="lower right", facecolor=C["card"], edgecolor=C["grid"], labelcolor=C["text"], fontsize=10)
+
+fig.tight_layout()
+fig.savefig("plots/overlay_comparison.png", dpi=180, bbox_inches="tight", facecolor=C["bg"])
+plt.close()
+print("✅ plots/overlay_comparison.png")
 
 # ── Save raw training data ──────────────────────────────────────
 data = {
