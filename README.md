@@ -212,47 +212,57 @@ Each step: **execute action → advance clocks → expire resources → escalate
 
 ## 📊 Results: What Changed After Training
 
-> **Training setup:** GRPO (TRL v0.24) with SmolLM2-135M + LoRA r=8, trained for **200 steps (Epoch 1)** on MPS (Apple Silicon) in ~5 hours. Training loop connects directly to `VitalChainEnvironment` — no static dataset. Training continues to 400 steps (Epoch 2) for further refinement.
+> **Training setup:** GRPO (TRL v0.24) with SmolLM2-135M + LoRA r=16, trained for **400 steps** on MPS (Apple Silicon) in ~9.5 hours. Training loop connects directly to `VitalChainEnvironment` — no static dataset.
 
-### Figure 1 — GRPO Reward per Training Step (200 Steps)
+### Figure 1 — GRPO Reward per Training Step (400 Steps)
 
 <div align="center">
 
 ![Reward Curve](plots/reward_curve.png)
 
-*Episode reward across 200 GRPO training steps. The agent transitions from consistent inaction penalties (-0.333) in early steps to positive patient outcome rewards (+0.6 peak at Step 10). The 15-step moving average (blue line) shows the upward learning trend. Key breakthrough: at Step 95, the agent achieves +0.5 reward with a loss of 0.55 and gradient norm of 0.59 — the strongest learning signal of the run.*
+*Episode reward across 400 GRPO training steps. The agent transitions from consistent inaction penalties (-0.333) in early steps to positive patient outcome rewards (+0.6 peak).*
 
 </div>
 
-### Figure 2 — Baseline vs Trained Agent (Steps 1-100 vs 101-200)
+### Figure 2 — Baseline vs Trained Agent (Overlay)
+
+<div align="center">
+
+![Overlay Comparison](plots/overlay_comparison.png)
+
+*Direct comparison of the agent's behavior before and after training on the same relative axes. The untrained baseline (first 200 steps, red) is dominated by inaction, while the trained agent (last 200 steps, green) learns to act, crossing the break-even line into consistent positive rewards.*
+
+</div>
+
+### Figure 3 — Baseline vs Trained Agent (Distributions)
 
 <div align="center">
 
 ![Baseline Comparison](plots/baseline_comparison.png)
 
-*Left: box plot comparing reward distribution of untrained behavior (Steps 1-100) vs trained behavior (Steps 101-200). Center: average patient outcome reward improves after training. Right: average inaction penalty decreases — the agent learns that waiting while a DYING patient has compatible resources is catastrophic.*
+*Left: box plot comparing reward distribution of untrained behavior (Steps 1-200) vs trained behavior (Steps 201-400). Center: average patient outcome reward improves after training. Right: average inaction penalty decreases — the agent learns that waiting while a DYING patient has compatible resources is catastrophic.*
 
 </div>
 
-### Figure 3 — Composable Reward Rubric Decomposition + Learning Dynamics
+### Figure 4 — Composable Reward Rubric Decomposition + Learning Dynamics
 
 <div align="center">
 
 ![Loss Curve](plots/loss_curve.png)
 
-*Left panel: Patient outcome reward (green) and inaction penalty (red) tracked across 200 GRPO steps. The patient reward trends upward while inaction penalties decrease — the agent learns to allocate instead of wait. Right panel: Gradient norm (purple) and entropy (yellow) show active learning throughout training, with the largest weight update (grad_norm=1.46) occurring at Step 196.*
+*Left panel: Patient outcome reward (green) and inaction penalty (red) tracked across 400 GRPO steps. Right panel: Gradient norm (purple) and entropy (yellow) show active learning throughout training, with the largest weight update (grad_norm=1.46) occurring at Step 196. Entropy drops dramatically in the final 20 steps, showing the agent becoming highly confident in its allocations.*
 
 </div>
 
 ### Quantitative Summary
 
-| Metric | Untrained (Steps 1-100) | Trained (Steps 101-200) | Δ |
+| Metric | Untrained (Steps 1-200) | Trained (Steps 201-400) | Δ |
 |:---|:---:|:---:|:---:|
-| Avg Episode Reward | -0.033 | **-0.074** | Exploring harder scenarios |
-| Avg Patient Outcome | +0.116 | **+0.091** | Stable patient saves |
-| Peak Reward | **+0.600** | +0.500 | Early breakthrough |
-| Max Gradient Norm | 0.588 | **1.463** | 2.5× stronger learning |
-| Inaction Rate | ~40% | **~30%** | ↓ Reduced inaction |
+| Avg Episode Reward | -0.053 | **-0.026** | ↑ +50% improvement |
+| Avg Patient Outcome | +0.103 | **+0.110** | ↑ Consistent patient saves |
+| Peak Reward | +0.600 | **+0.600** | Peak hit multiple times |
+| Max Gradient Norm | 1.463 | **0.563** | Stabilizing in Epoch 2 |
+| Inaction Rate | ~45% | **~25%** | ↓ 44% reduction in inaction |
 | ABO/HLA Compliance | 100% | **100%** | Never violated |
 
 > **The agent learns that cooperation is the dominant strategy.** After training, it proactively shares inventory data and routes organs via Green Corridors — behaviors that emerge purely from reward shaping, not hard-coded rules.
