@@ -22,6 +22,8 @@ pinned: false
 
 ![VitalChain Demo](assets/demo.gif)
 
+[🔊 **Watch with sound →**](assets/demo.mp4)
+
 <br>
 
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
