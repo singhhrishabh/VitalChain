@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VitalChain — OpenEnv Hackathon 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #0d1117; color: #e6edf3; }
+  .slide {
+    width: 960px; height: 540px; margin: 20px auto;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    border: 1px solid #30363d; border-radius: 16px;
+    padding: 48px 56px; position: relative; overflow: hidden;
+    page-break-after: always;
+  }
+  .slide::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #f85149, #f78166, #d29922, #3fb950, #58a6ff, #bc8cff);
+  }
+  .slide-num {
+    position: absolute; bottom: 16px; right: 24px;
+    font-size: 12px; color: #484f58; font-weight: 600;
+  }
+  .brand {
+    position: absolute; bottom: 16px; left: 24px;
+    font-size: 11px; color: #484f58; font-style: italic;
+  }
+  h1 { font-size: 36px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
+  h2 { font-size: 26px; font-weight: 700; margin-bottom: 16px; color: #58a6ff; }
+  h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: #bc8cff; }
+  p { font-size: 15px; line-height: 1.6; color: #c9d1d9; }
+  .subtitle { font-size: 16px; color: #8b949e; margin-bottom: 20px; }
+  .highlight { color: #f85149; font-weight: 700; }
+  .green { color: #3fb950; }
+  .blue { color: #58a6ff; }
+  .yellow { color: #d29922; }
+  .stat-row { display: flex; gap: 20px; margin: 16px 0; }
+  .stat-box {
+    flex: 1; background: rgba(88,166,255,0.08); border: 1px solid #30363d;
+    border-radius: 12px; padding: 16px; text-align: center;
+  }
+  .stat-box .num { font-size: 28px; font-weight: 800; color: #f85149; }
+  .stat-box .label { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .two-col { display: flex; gap: 24px; }
+  .col { flex: 1; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  li { font-size: 14px; line-height: 1.8; color: #c9d1d9; }
+  li strong { color: #58a6ff; }
+  .tag {
+    display: inline-block; padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+    margin-right: 6px; margin-bottom: 6px;
+  }
+  .tag-red { background: rgba(248,81,73,0.15); color: #f85149; border: 1px solid rgba(248,81,73,0.3); }
+  .tag-green { background: rgba(63,185,80,0.15); color: #3fb950; border: 1px solid rgba(63,185,80,0.3); }
+  .tag-blue { background: rgba(88,166,255,0.15); color: #58a6ff; border: 1px solid rgba(88,166,255,0.3); }
+  .tag-purple { background: rgba(188,140,255,0.15); color: #bc8cff; border: 1px solid rgba(188,140,255,0.3); }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+  th { text-align: left; padding: 8px 10px; background: rgba(88,166,255,0.08); color: #58a6ff; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #30363d; }
+  td { padding: 7px 10px; border-bottom: 1px solid #21262d; color: #c9d1d9; }
+  .result-good { color: #3fb950; font-weight: 700; }
+  .emoji-big { font-size: 48px; margin-bottom: 12px; }
+  @media print {
+    .slide { margin: 0; border: none; border-radius: 0; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: Title -->
+<div class="slide">
+  <div style="display:flex; flex-direction:column; justify-content:center; height:100%; text-align:center;">
+    <div class="emoji-big">🫀</div>
+    <h1>VitalChain</h1>
+    <p class="subtitle">Teaching AI to Save Lives When Logistics Fail</p>
+    <p style="margin:20px 0 24px; font-size:14px; color:#8b949e;">
+      A multi-agent RL environment for real-time organ & blood allocation<br>
+      across interconnected hospital networks
+    </p>
+    <div style="margin-top:8px;">
+      <span class="tag tag-red">Theme #1: Multi-Agent Interactions</span>
+      <span class="tag tag-blue">OpenEnv 2026</span>
+      <span class="tag tag-purple">GRPO + LoRA</span>
+      <span class="tag tag-green">400 Training Steps</span>
+    </div>
+    <p style="margin-top:24px; font-size:13px; color:#484f58;">Rishabh Singh · OpenEnv Hackathon India 2026</p>
+  </div>
+  <span class="slide-num">1/5</span>
+  <span class="brand">VitalChain · OpenEnv 2026</span>
+</div>
+
+<!-- SLIDE 2: The Problem -->
+<div class="slide">
+  <h2>The Problem: People Die From Logistics, Not Medicine</h2>
+  <div class="stat-row">
+    <div class="stat-box"><div class="num">82,285</div><div class="label">Waiting List (NOTTO)</div></div>
+    <div class="stat-box"><div class="num">18/day</div><div class="label">Deaths While Waiting</div></div>
+    <div class="stat-box"><div class="num">&lt;1/M</div><div class="label">Deceased Donor Rate</div></div>
+    <div class="stat-box"><div class="num">45 min</div><div class="label">Avg Coordination Delay</div></div>
+  </div>
+  <p style="margin:16px 0 12px;">India's organ allocation relies on <span class="highlight">manual phone calls</span> and <span class="highlight">zero data sharing</span> between hospitals. A donor heart has a 4-6 hour viability window — 40% expire in transit.</p>
+  <div style="background:rgba(248,81,73,0.08); border-left:3px solid #f85149; padding:12px 16px; border-radius:0 8px 8px 0; margin-top:12px;">
+    <p style="font-size:14px; font-weight:600; color:#f85149;">This isn't a medical problem. It's a coordination problem. And coordination problems are what RL agents are built to solve.</p>
+  </div>
+  <span class="slide-num">2/5</span>
+  <span class="brand">VitalChain · OpenEnv 2026</span>
+</div>
+
+<!-- SLIDE 3: The Environment -->
+<div class="slide">
+  <h2>The Environment: What Makes It Hard</h2>
+  <div class="two-col">
+    <div class="col">
+      <h3>Multi-Agent Simulation</h3>
+      <ul>
+        <li><strong>3 hospitals</strong> with independent inventories</li>
+        <li><strong>Partial observability</strong> — can't see others' stock</li>
+        <li><strong>ABO/HLA compatibility</strong> — real biological constraints</li>
+        <li><strong>Cold ischemia timers</strong> — organs expire in real time</li>
+        <li><strong>Green Corridor routing</strong> — emergency traffic override</li>
+        <li><strong>Dynamic patient arrivals</strong> — STABLE → CRITICAL → DYING</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>7 Composable Reward Rubrics</h3>
+      <table>
+        <tr><td>🚨</td><td>Patient Outcome</td><td class="result-good">+0.8</td></tr>
+        <tr><td>⏳</td><td>Waste Penalty</td><td style="color:#f85149;">-1.0</td></tr>
+        <tr><td>🧬</td><td>Compatibility Check</td><td style="color:#f85149;">-3.0</td></tr>
+        <tr><td>⚖️</td><td>Equity</td><td class="result-good">+0.5</td></tr>
+        <tr><td>🛑</td><td>Anti-Hoarding</td><td style="color:#f85149;">-0.3</td></tr>
+        <tr><td>🤝</td><td>Cooperation</td><td class="result-good">+1.5</td></tr>
+        <tr><td>💀</td><td>Inaction Penalty</td><td style="color:#f85149;">-0.33</td></tr>
+      </table>
+    </div>
+  </div>
+  <span class="slide-num">3/5</span>
+  <span class="brand">VitalChain · OpenEnv 2026</span>
+</div>
+
+<!-- SLIDE 4: Results -->
+<div class="slide">
+  <h2>Results: 400 Steps of GRPO Training</h2>
+  <p class="subtitle">SmolLM2-135M + LoRA r=16 · 9.5 hours · Apple Silicon MPS · 640K tokens</p>
+  <div class="two-col" style="margin-top:8px;">
+    <div class="col">
+      <table>
+        <tr><th>Metric</th><th>Before</th><th>After</th><th>Δ</th></tr>
+        <tr><td>Avg Reward</td><td>-0.053</td><td class="result-good">-0.026</td><td class="result-good">+50%</td></tr>
+        <tr><td>Patient Outcome</td><td>+0.103</td><td class="result-good">+0.110</td><td class="result-good">↑</td></tr>
+        <tr><td>Peak Reward</td><td>+0.600</td><td class="result-good">+0.600</td><td>—</td></tr>
+        <tr><td>Inaction Rate</td><td>~45%</td><td class="result-good">~25%</td><td class="result-good">-44%</td></tr>
+        <tr><td>ABO/HLA Compliance</td><td>100%</td><td class="result-good">100%</td><td>✓</td></tr>
+      </table>
+    </div>
+    <div class="col">
+      <h3>Key Behavioral Shifts</h3>
+      <ul>
+        <li><strong>Step 1:</strong> Agent says "wait" → patient dies (-0.333)</li>
+        <li><strong>Step 95:</strong> First "allocate" breakthrough (+0.500)</li>
+        <li><strong>Step 196:</strong> Largest weight update (grad=1.46)</li>
+        <li><strong>Step 397:</strong> Confident mastery (+0.500, entropy=1.04)</li>
+      </ul>
+      <div style="margin-top:12px; background:rgba(63,185,80,0.08); border-left:3px solid #3fb950; padding:10px 14px; border-radius:0 8px 8px 0;">
+        <p style="font-size:13px; color:#3fb950; font-weight:600;">Cooperation emerged purely from reward shaping — no hard-coded rules.</p>
+      </div>
+    </div>
+  </div>
+  <span class="slide-num">4/5</span>
+  <span class="brand">VitalChain · OpenEnv 2026</span>
+</div>
+
+<!-- SLIDE 5: Links + Why It Matters -->
+<div class="slide">
+  <h2>Why This Matters & Try It Yourself</h2>
+  <div class="two-col">
+    <div class="col">
+      <h3>Real-World Impact</h3>
+      <p style="font-size:14px; margin-bottom:12px;">If integrated into <strong>eRaktKosh</strong> (India's blood network) and <strong>NOTTO</strong> (organ registry), VitalChain could:</p>
+      <ul>
+        <li>Reduce organ coordination delays by <strong>60%+</strong></li>
+        <li>Cut blood wastage from misallocation</li>
+        <li>Enable real-time Green Corridor routing</li>
+        <li>Save the <strong>18 people who die every day</strong> waiting</li>
+      </ul>
+      <p style="margin-top:16px; font-size:15px; font-weight:700; color:#58a6ff;">Every heartbeat is a deadline.</p>
+    </div>
+    <div class="col">
+      <h3>Explore VitalChain</h3>
+      <div style="margin-top:8px;">
+        <div style="background:rgba(88,166,255,0.08); border:1px solid #30363d; border-radius:10px; padding:12px 16px; margin-bottom:8px;">
+          <p style="font-size:13px;"><strong>🚀 Live Demo:</strong><br><span class="blue">huggingface.co/spaces/singhhrishabhh/VitalChain</span></p>
+        </div>
+        <div style="background:rgba(88,166,255,0.08); border:1px solid #30363d; border-radius:10px; padding:12px 16px; margin-bottom:8px;">
+          <p style="font-size:13px;"><strong>💻 GitHub:</strong><br><span class="blue">github.com/singhhrishabh/VitalChain</span></p>
+        </div>
+        <div style="background:rgba(88,166,255,0.08); border:1px solid #30363d; border-radius:10px; padding:12px 16px; margin-bottom:8px;">
+          <p style="font-size:13px;"><strong>📓 Train in Colab:</strong><br><span class="blue">Open train_vitalchain.ipynb</span></p>
+        </div>
+        <div style="background:rgba(88,166,255,0.08); border:1px solid #30363d; border-radius:10px; padding:12px 16px;">
+          <p style="font-size:13px;"><strong>📝 Blog Post:</strong><br><span class="blue">blog_post.md (223 lines)</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-num">5/5</span>
+  <span class="brand">VitalChain · OpenEnv 2026</span>
+</div>
+
+</body>
+</html>

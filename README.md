@@ -88,6 +88,7 @@ We present **VitalChain**, a multi-agent reinforcement learning environment buil
 <td align="center"><a href="blog_post.md"><b>📝 Blog Post</b></a></td>
 <td align="center"><a href="#-results-what-changed-after-training"><b>📊 Results</b></a></td>
 <td align="center"><a href="https://singhhrishabhh-vitalchain.hf.space/docs"><b>📖 API Docs</b></a></td>
+<td align="center"><a href="assets/pitch_deck.html"><b>🎯 Slides</b></a></td>
 <td align="center"><a href="#-quick-start"><b>⚡ Quick Start</b></a></td>
 </tr>
 </table>
@@ -112,8 +113,10 @@ We present **VitalChain**, a multi-agent reinforcement learning environment buil
 Environments for this theme involve **cooperation, competition, negotiation, and coalition formation**. VitalChain directly addresses this:
 
 - **Cooperation vs Hoarding** — Hospitals are semi-autonomous agents that must choose to share inventory data (+1.5 reward) or hoard (-0.3 penalty)
-- **Partial Observability** — No hospital can see another's inventory; the agent must query and negotiate
-- **Theory of Mind** — Agent must infer which hospitals likely have compatible resources based on partial signals
+- **Negotiation** — When a hospital lacks a resource, it must negotiate inter-hospital transfers through Green Corridor routing, balancing transport cost against patient urgency
+- **Coalition Formation** — Hospitals that consistently share resources form implicit coalitions, receiving compounding cooperation bonuses across episodes
+- **Partial Observability** — No hospital can see another's inventory; the agent must query and infer availability from partial signals
+- **Theory of Mind** — Agent must reason about which hospitals likely have compatible resources based on blood-type distributions and historical sharing patterns
 - **Emergent Strategy** — Cooperation emerges purely from RL reward shaping, not hard-coded rules. After 400 training steps, the agent consistently prefers cooperative resource-sharing over hoarding
 
 </td>
