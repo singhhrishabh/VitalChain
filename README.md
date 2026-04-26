@@ -98,6 +98,13 @@ We present **VitalChain**, a multi-agent reinforcement learning environment for 
 
 ## 🏆 Hackathon Theme Alignment
 
+> **Judge's Winning Tip Alignment:** *"If you use small models and iterate on training runs, you have a way higher chance of winning... Focus on the quality of your envs, reward signals, use qlora, budget your available compute."*
+> 
+> **How VitalChain delivers on this:**
+> - **Small Models + QLoRA:** We trained `SmolLM2-135M` using Rank-16 LoRA (PEFT) to ensure lightning-fast training loops that fit on local hardware, proving that intelligent behavior comes from good environments, not massive parameter counts.
+> - **Iterative Training:** We didn't do one giant run. We iterated through 100-step baseline tests before scaling to our highly successful 400-step final curriculum.
+> - **High-Quality Env & Signals:** We moved past generic 0/1 rewards to build a continuous, composable **7-signal reward rubric** inside a complex, multi-agent biological logistics simulation with real-world constraints (ABO/HLA compatibility, ischemia timers).
+
 <table>
 <tr>
 <td width="50%">
