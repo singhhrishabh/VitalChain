@@ -41,7 +41,7 @@ pinned: false
 <td align="center"><a href="https://huggingface.co/spaces/singhhrishabhh/VitalChain"><b>🚀 Live Demo</b></a></td>
 <td align="center"><a href="https://github.com/singhhrishabh/VitalChain"><b>💻 GitHub</b></a></td>
 <td align="center"><a href="https://colab.research.google.com/github/singhhrishabh/VitalChain/blob/main/train_vitalchain.ipynb"><b>📓 Train in Colab</b></a></td>
-<td align="center"><a href="https://huggingface.co/spaces/singhhrishabhh/VitalChain/discussions/1"><b>📝 Blog Post</b></a></td>
+<td align="center"><a href="blog_post.md"><b>📝 Blog Post</b></a></td>
 <td align="center"><a href="#-results-what-changed-after-training"><b>📊 Results</b></a></td>
 <td align="center"><a href="https://singhhrishabhh-vitalchain.hf.space/docs"><b>📖 API Docs</b></a></td>
 <td align="center"><a href="#-quick-start"><b>⚡ Quick Start</b></a></td>
