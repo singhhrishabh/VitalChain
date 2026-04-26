@@ -18,6 +18,10 @@ pinned: false
 
 **VitalChain is not a hospital management app — it is a state-level, AI-driven protocol that sits above disparate hospital networks, optimizing the flow of critical life-saving resources (organs, blood) using Reinforcement Learning and real-time Green Corridor traffic integrations.**
 
+<br>
+<video src="assets/demo.mp4" width="800" controls autoplay muted loop></video>
+<br>
+
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![OpenEnv](https://img.shields.io/badge/OpenEnv-Latest-crimson?style=for-the-badge)](https://github.com/openenv)
 [![TRL](https://img.shields.io/badge/TRL-GRPO-FF6F00?style=for-the-badge&logo=huggingface&logoColor=white)](https://huggingface.co/docs/trl)
