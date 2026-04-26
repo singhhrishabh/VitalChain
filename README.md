@@ -20,6 +20,42 @@ pinned: false
 
 <br>
 
+---
+
+<table>
+<tr>
+<td>
+
+### 📄 Abstract
+
+We present **VitalChain**, a multi-agent reinforcement learning environment for training LLM-based agents to perform real-time biological resource allocation across interconnected hospital networks. The environment simulates dynamic patient arrivals with varying urgency levels, ABO/HLA blood-type compatibility constraints, cold ischemia timers for organ viability, and inter-hospital Green Corridor logistics. We introduce a **composable 7-signal reward rubric** that independently evaluates patient outcomes, resource waste, compatibility compliance, equity, anti-hoarding behavior, cooperation, and inaction penalties. Using GRPO (Group Relative Policy Optimization) with LoRA-adapted SmolLM2-135M, we demonstrate that the agent transitions from consistent inaction (reward: −0.333) to proactive, life-saving resource allocation (peak reward: +0.600) within 200 training steps, achieving zero ABO/HLA violations across all episodes. Our results suggest that open-weight LLMs can be effectively trained for multi-constraint, time-critical medical logistics through reward shaping alone, without hard-coded decision rules.
+
+</td>
+</tr>
+</table>
+
+---
+
+<br>
+
+<table>
+<tr>
+<td align="center">
+<h3>💀 While You Read This README...</h3>
+<br>
+<b>~6,570 people</b> have died waiting for organ transplants in India in 2026 so far<br>
+<sub>Based on <b>18 deaths per day</b> (NOTTO) × days elapsed in 2026</sub><br><br>
+<b>82,285</b> patients are on the national transplant waiting list right now<br>
+<sub>Source: NOTTO, December 2025</sub><br><br>
+<b>⏱️ Every 80 minutes</b>, another name is added to the waiting list<br>
+<sub>Source: Union Health Ministry Report to Parliament</sub><br><br>
+<em>VitalChain exists because these numbers should be zero.</em>
+</td>
+</tr>
+</table>
+
+<br>
+
 ![VitalChain Demo](assets/demo.gif)
 
 [🔊 **Watch with sound →**](assets/demo.mp4)
