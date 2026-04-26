@@ -88,7 +88,7 @@ We present **VitalChain**, a multi-agent reinforcement learning environment buil
 <td align="center"><a href="blog_post.md"><b>📝 Blog Post</b></a></td>
 <td align="center"><a href="#-results-what-changed-after-training"><b>📊 Results</b></a></td>
 <td align="center"><a href="https://singhhrishabhh-vitalchain.hf.space/docs"><b>📖 API Docs</b></a></td>
-<td align="center"><a href="assets/pitch_deck.html"><b>🎯 Slides</b></a></td>
+<td align="center"><a href="https://htmlpreview.github.io/?https://github.com/singhhrishabh/VitalChain/blob/main/assets/pitch_deck.html"><b>🎯 Slides</b></a></td>
 <td align="center"><a href="#-quick-start"><b>⚡ Quick Start</b></a></td>
 </tr>
 </table>
