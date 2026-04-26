@@ -2821,6 +2821,8 @@
     "avg_patient_second_half": 0.1095000027678907,
     "peak_reward": 0.6000000238418579,
     "peak_step": 10,
-    "max_grad_norm": 1.4626517295837402
+    "max_grad_norm": 1.4626517295837402,
+    "final_entropy": 3.433008909225464,
+    "total_tokens": 640316
   }
 }

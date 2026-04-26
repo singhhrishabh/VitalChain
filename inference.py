@@ -497,6 +497,29 @@ def run_training():
     from transformers import AutoModelForCausalLM, AutoTokenizer
     from peft import LoraConfig, get_peft_model
 
+    # ── Weights & Biases integration ──
+    USE_WANDB = False
+    try:
+        import wandb
+        wandb.init(
+            project="vitalchain-grpo",
+            name="grpo-smollm2-135m-400steps",
+            config={
+                "model": "SmolLM2-135M-Instruct",
+                "lora_rank": 16,
+                "algorithm": "GRPO",
+                "num_steps": 400,
+                "reward_rubrics": 7,
+                "environment": "VitalChain",
+                "hackathon": "OpenEnv 2026",
+            },
+            tags=["openenv", "grpo", "medical-ai", "rl"],
+        )
+        USE_WANDB = True
+        print("✅ Weights & Biases initialized — dashboard active")
+    except (ImportError, wandb.errors.UsageError):
+        print("ℹ️  wandb not available, logging locally only")
+
     MODEL_NAME = "HuggingFaceTB/SmolLM2-135M-Instruct"
     LORA_RANK = 8
     device = "mps" if torch.backends.mps.is_available() else "cpu"
@@ -543,7 +566,7 @@ def run_training():
         num_train_epochs=2,
         save_steps=25,
         logging_steps=1,
-        report_to="none",
+        report_to="wandb" if USE_WANDB else "none",
         no_cuda=True if device != "cuda" else False,
     )
 
