@@ -28,7 +28,7 @@ pinned: false
 
 ### 📄 Abstract
 
-We present **VitalChain**, a multi-agent reinforcement learning environment for training LLM-based agents to perform real-time biological resource allocation across interconnected hospital networks. The environment simulates dynamic patient arrivals with varying urgency levels, ABO/HLA blood-type compatibility constraints, cold ischemia timers for organ viability, and inter-hospital Green Corridor logistics. We introduce a **composable 7-signal reward rubric** that independently evaluates patient outcomes, resource waste, compatibility compliance, equity, anti-hoarding behavior, cooperation, and inaction penalties. Using GRPO (Group Relative Policy Optimization) with LoRA-adapted SmolLM2-135M, we demonstrate that the agent transitions from consistent inaction (reward: −0.333) to proactive, life-saving resource allocation (peak reward: +0.600) within 200 training steps, achieving zero ABO/HLA violations across all episodes. Our results suggest that open-weight LLMs can be effectively trained for multi-constraint, time-critical medical logistics through reward shaping alone, without hard-coded decision rules.
+We present **VitalChain**, a multi-agent reinforcement learning environment built for **OpenEnv Hackathon Theme #1: Multi-Agent Interactions** — training LLM-based agents to perform real-time biological resource allocation across interconnected hospital networks under partial observability. The environment simulates dynamic patient arrivals with varying urgency levels, ABO/HLA blood-type compatibility constraints, cold ischemia timers for organ viability, and inter-hospital Green Corridor logistics — requiring agents to develop theory-of-mind reasoning and emergent cooperative strategies. We introduce a **composable 7-signal reward rubric** that independently evaluates patient outcomes, resource waste, compatibility compliance, equity, anti-hoarding behavior, cooperation, and inaction penalties. Using GRPO (Group Relative Policy Optimization) with LoRA-adapted SmolLM2-135M, we demonstrate that across **400 training steps** (2 full epochs, 9.5 hours on Apple Silicon), the agent transitions from consistent inaction (reward: −0.333) to proactive, life-saving resource allocation (peak reward: +0.600), achieving zero ABO/HLA violations and a 44% reduction in inaction rate. Our results suggest that open-weight LLMs can be effectively trained for multi-constraint, time-critical medical logistics through reward shaping alone, without hard-coded decision rules.
 
 </td>
 </tr>
@@ -114,7 +114,7 @@ Environments for this theme involve **cooperation, competition, negotiation, and
 - **Cooperation vs Hoarding** — Hospitals are semi-autonomous agents that must choose to share inventory data (+1.5 reward) or hoard (-0.3 penalty)
 - **Partial Observability** — No hospital can see another's inventory; the agent must query and negotiate
 - **Theory of Mind** — Agent must infer which hospitals likely have compatible resources based on partial signals
-- **Emergent Strategy** — Cooperation emerges purely from RL reward shaping, not hard-coded rules. After 200 episodes, cooperation rate reaches **92%**
+- **Emergent Strategy** — Cooperation emerges purely from RL reward shaping, not hard-coded rules. After 400 training steps, the agent consistently prefers cooperative resource-sharing over hoarding
 
 </td>
 <td width="50%">
