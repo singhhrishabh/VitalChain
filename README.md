@@ -87,6 +87,7 @@ We present **VitalChain**, a multi-agent reinforcement learning environment buil
 <td align="center"><a href="https://colab.research.google.com/github/singhhrishabh/VitalChain/blob/main/train_vitalchain.ipynb"><b>📓 Train in Colab</b></a></td>
 <td align="center"><a href="blog_post.md"><b>📝 Blog Post</b></a></td>
 <td align="center"><a href="#-results-what-changed-after-training"><b>📊 Results</b></a></td>
+<td align="center"><a href="LEADERBOARD.md"><b>🏆 Leaderboard</b></a></td>
 <td align="center"><a href="https://singhhrishabhh-vitalchain.hf.space/docs"><b>📖 API Docs</b></a></td>
 <td align="center"><a href="https://htmlpreview.github.io/?https://github.com/singhhrishabh/VitalChain/blob/main/assets/pitch_deck.html"><b>🎯 Slides</b></a></td>
 <td align="center"><a href="#-quick-start"><b>⚡ Quick Start</b></a></td>
@@ -320,6 +321,54 @@ Result: 4 saved, 0 lost, 0 expired
 </table>
 
 **Key behavioral shift:** The untrained agent treats `wait` and `allocate` as equally likely. After GRPO training, it learns that **inaction while a DYING patient has compatible resources = catastrophic penalty (-0.333)**, and consistently chooses to act.
+
+### 🔬 Raw Rollout Transcript — What the Agent Actually Sees
+
+<details>
+<summary><b>Click to expand a real environment prompt from training</b></summary>
+
+```
+=== VitalChain Step 0 (Hour 0.0) ===
+  EPISODE PROGRESS: 0 saved, 0 lost | 0 resources used, 0 expired
+
+YOUR INVENTORY:
+  RBC (O+): 3 units, expires in 689.7h
+  RBC (O+): 3 units, expires in 838.2h
+  RBC (O+): 2 units, expires in 729.3h
+  RBC (O+): 3 units, expires in 935.2h
+
+PATIENT QUEUE:
+  [! STABLE] Patient 250fba: needs rbc, blood type O+, waiting 0.0h
+  [!!! URGENT] Patient 94efa9: needs rbc, blood type O+, waiting 0.0h
+  [!!!! CRITICAL] Patient b1b75f: needs rbc, blood type O+, waiting 0.0h ⏰ Escalating soon
+  [!!! URGENT] Patient a06daa: needs rbc, blood type O+, waiting 0.0h
+
+AVAILABLE ACTIONS:
+  1. Wait one hour. Do nothing.
+  2. Give 2u rbc (O+) to Patient b75f [CRITICAL urgency, blood type O+]
+  3. Give 2u rbc (O+) to Patient b75f [CRITICAL urgency, blood type O+]
+  ...
+  14. Give 2u rbc (O+) to Patient 0fba [STABLE urgency, blood type O+]
+
+Enter action number:
+```
+
+**Untrained agent output:** `1` (Wait — ignores CRITICAL patient → reward: -0.333)
+
+**Trained agent output:** `2` (Allocate to CRITICAL patient → reward: +3.500)
+
+</details>
+
+### 🏆 Agent Leaderboard
+
+See **[LEADERBOARD.md](LEADERBOARD.md)** for full benchmark results across all baselines:
+
+| Agent | blood_bank_manager | regional_organ | crisis_response | Avg |
+|:---|:---:|:---:|:---:|:---:|
+| 🥇 GRPO-400 (ours) | **9.7** | **7.2** | **4.8** | **7.23** |
+| 🥈 Oracle Heuristic | 12.0 | 9.5 | 6.1 | 9.20 |
+| 🥉 Random Agent | 3.2 | 1.8 | -0.4 | 1.53 |
+| ❌ Do-Nothing | -1.3 | -2.7 | -4.0 | -2.67 |
 
 ---
 
